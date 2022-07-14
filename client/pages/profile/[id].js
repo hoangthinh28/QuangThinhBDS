@@ -6,9 +6,6 @@ export default function Profile() {
   const { Moralis, isInitialized } = useMoralis();
   const router = useRouter();
 
-
-
-
   return (
     <div>
       <div>

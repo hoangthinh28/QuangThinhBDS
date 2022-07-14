@@ -20,8 +20,8 @@ export default function Login() {
 
   return (
     <div className="mt-12 mb-12 h-full">
-      <style jsx>{`
-        input[type="text"],
+      <style>{`
+        input[tstyle jsxype="text"],
         input[type="password"],
         input[type="tel"],
         input[type="date"],

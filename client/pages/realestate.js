@@ -44,7 +44,7 @@ export default function RealEstate() {
           return (
             <MainProduct
               key={each.id}
-              id={each.id}
+              id={each.id}  
               image={each.image}
               title={each.title}
               area={each.area}
