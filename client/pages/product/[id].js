@@ -62,6 +62,7 @@ export default function Product() {
     }
     if (isInitialized) {
       fetchSigleRsList();
+      console.log(pdList);
     }
   });
 
@@ -265,11 +266,11 @@ export default function Product() {
               </table>
             </div>
             <div className="pl-48 pr-96 pt-6">
-              <h1 className="font-semibold text-2xl pb-3">
+              <h1 className="font-semibold text-2xl py-3">
                 FURNITURE, EQUIPMENT
               </h1>
               <table className="p-4 w-3/4">
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwed9c29cb/images/Furniture-Icon/bed.svg"
@@ -277,7 +278,7 @@ export default function Product() {
                     />
                     <span className="pl-3">Bed + mattress</span>
                   </td>
-                  <td className="flex ml-40">
+                  <td className="flex ml-40 pl-1">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwf3358920/images/Furniture-Icon/desk_work.svg"
                       alt=""
@@ -285,7 +286,7 @@ export default function Product() {
                     <span className="pl-3">Desk</span>
                   </td>
                 </tr>
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw9b363592/images/Furniture-Icon/dinner-table%201.svg"
@@ -301,7 +302,7 @@ export default function Product() {
                     <span className="pl-3">Wardrobe</span>
                   </td>
                 </tr>
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwfeade59b/images/Furniture-Icon/kitchen_cabinet.svg"
@@ -309,19 +310,21 @@ export default function Product() {
                     />
                     <span className="pl-3">Kitchen + Cabinets</span>
                   </td>
-                  <td className="flex ml-36">
+                  <td className="flex ml-32">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwd34cd67d/images/Furniture-Icon/shower_cabin.svg"
                       alt=""
+                      className="pl-3"
                     />
                     <span className="pl-3">Freestanding bathtub</span>
                   </td>
                 </tr>
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw0fb39b1a/images/Furniture-Icon/air_conditioner.svg"
                       alt=""
+                      className="pr-1"
                     />
                     <span className="pl-3">Air conditioning</span>
                   </td>
@@ -336,9 +339,9 @@ export default function Product() {
               </table>
             </div>
             <div className="pl-48 pr-96 pt-6">
-              <h1 className="font-semibold text-2xl pb-3">UTILITIES </h1>
+              <h1 className="font-semibold text-2xl py-3">UTILITIES </h1>
               <table className="p-4 w-3/4">
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwaceb4762/images/Furniture-Icon/11-park.svg"
@@ -354,7 +357,7 @@ export default function Product() {
                     <span className="pl-3">Swimming pool</span>
                   </td>
                 </tr>
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwc2392472/images/Furniture-Icon/Co_danang.svg"
@@ -362,7 +365,7 @@ export default function Product() {
                     />
                     <span className="pl-3">Multi-purpose lawn</span>
                   </td>
-                  <td className="flex ml-28">
+                  <td className="flex ml-24">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw716db60c/images/Furniture-Icon/Sanbong.svg"
                       alt=""
@@ -370,7 +373,7 @@ export default function Product() {
                     <span className="pl-3">Table tennis court</span>
                   </td>
                 </tr>
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwb51b7caa/images/Furniture-Icon/Sanchoi.svg"
@@ -378,7 +381,7 @@ export default function Product() {
                     />
                     <span className="pl-3">Children's playground</span>
                   </td>
-                  <td className="flex ml-36">
+                  <td className="flex ml-20 pd-2">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwa9b7bbcd/images/Furniture-Icon/badminton.svg"
                       alt=""
@@ -386,7 +389,7 @@ export default function Product() {
                     <span className="pl-3">Badminton yard</span>
                   </td>
                 </tr>
-                <tr className="bg-white text-left flex border-b pb-3">
+                <tr className="bg-white text-left flex border-b py-3">
                   <td className="flex">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw4ef43c4f/images/Furniture-Icon/basketball-hoop%201.svg"
@@ -394,7 +397,7 @@ export default function Product() {
                     />
                     <span className="pl-3">Basketball yard</span>
                   </td>
-                  <td className="flex ml-40">
+                  <td className="flex ml-32">
                     <img
                       src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw397f28b6/images/Furniture-Icon/event-tent%201.svg"
                       alt=""

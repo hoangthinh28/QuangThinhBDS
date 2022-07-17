@@ -2,6 +2,7 @@ import { useState } from "react";
 import WalletCard from "../wallet/WalletCard";
 import { useMoralis } from "react-moralis";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function NavLink({ to, children }) {
   return (
@@ -104,6 +105,7 @@ function MobileNav({ open, setOpen }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { isAuthenticated, logout, user } = useMoralis();
+  const router = useRouter();
 
   const trimPublicAddress = (string, numberOfCharacter) => {
     return `${string.slice(0, numberOfCharacter)}...${string.slice(
@@ -149,26 +151,74 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center justify-center ">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/realestate">Real Estate</NavLink>
-          <NavLink to="/team">My Team</NavLink>
-          <NavLink to="/whitepaper1">White paper 1.1</NavLink>
+          <div
+            className={
+              router.pathname == "/" ? "border-b-4 border-red-500" : ""
+            }
+          >
+            <NavLink to="/">Home</NavLink>
+          </div>
+          <div
+            className={
+              router.pathname == "/realestate"
+                ? "border-b-4 border-red-500"
+                : ""
+            }
+          >
+            <NavLink to="/realestate">Real Estate</NavLink>
+          </div>
+          <div
+            className={
+              router.pathname == "/team" ? "border-b-4 border-red-500" : ""
+            }
+          >
+            <NavLink to="/team">My Team</NavLink>
+          </div>
+          <div
+            className={
+              router.pathname == "/whitepaper1"
+                ? "border-b-4 border-red-500"
+                : ""
+            }
+          >
+            {" "}
+            <NavLink to="/whitepaper1">White paper 1.1</NavLink>
+          </div>
           {isAuthenticated ? (
-            <div className="">
-              {user.get("isAdmin") && (
-                <NavLink to="/mint-realestate">Mint</NavLink>
-              )}
-              <Link href="/profile/[id]" as={`/profile/${user.id}`}>
-                {trimPublicAddress(user.get("ethAddress"), 5)}
-              </Link>
-
-              <button
-                className="ml-2 text-white bg-cyan-500 rounded hover:bg-cyan-600 p-3"
-                type="button"
-                onClick={logout}
-              >
-                Logout
-              </button>
+            <div className="flex text-center mt-3">
+              <div className="flex ">
+                {user.get("isAdmin") && (
+                  <div
+                    className={
+                      router.pathname == "/mint-realestate"
+                        ? "border-b-4 border-red-500"
+                        : ""
+                    }
+                  >
+                    <NavLink to="/mint-realestate">Mint</NavLink>
+                  </div>
+                )}
+                <div
+                  className={
+                    router.pathname == "/profile/[id]"
+                      ? "border-b-4 border-red-500"
+                      : ""
+                  }
+                >
+                  <Link href="/profile/[id]" as={`/profile/${user.id}`}>
+                    {trimPublicAddress(user.get("ethAddress"), 5)}
+                  </Link>
+                </div>
+              </div>
+              <div>
+                <button
+                  className="ml-2 text-white bg-cyan-500 rounded hover:bg-cyan-600  p-2"
+                  type="button"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </div>
             </div>
           ) : (
             <WalletCard />

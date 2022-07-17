@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Product(props) {
-  console.log(props);
   return (
     <div>
       <div className="">

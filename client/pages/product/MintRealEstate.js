@@ -17,6 +17,8 @@ export default function MintRealEstate() {
   const [toilet, setToiet] = useState("");
   const [bedRoom, setBedroom] = useState("");
   const [direct, setDirect] = useState("");
+  const [people, setPeople] = useState("");
+  const [detail, setDetail] = useState("");
 
   const { Moralis, isInitialized } = useMoralis();
 
@@ -32,7 +34,9 @@ export default function MintRealEstate() {
     area,
     toilet,
     bedroom,
-    direct
+    direct,
+    detail,
+    people
   ) => {
     const newRealEstate = Moralis.Object.extend("RealEstate");
     const realEstate = new newRealEstate();
@@ -48,6 +52,8 @@ export default function MintRealEstate() {
     realEstate.set("title", title);
     realEstate.set("bedRoom", bedroom);
     realEstate.set("direct", direct);
+    realEstate.set("detail", detail);
+    realEstate.set("people", people);
     realEstate.set("user", Moralis.User.current());
     realEstate.save();
     router.push("/");
@@ -60,7 +66,7 @@ export default function MintRealEstate() {
       <style jsx>{`
         input[type="text"],
         input[type="password"],
-        input[type="tel"],
+        input[type="number"],
         input[type="date"],
         input[type="email"] {
           width: 100%;
@@ -73,7 +79,7 @@ export default function MintRealEstate() {
 
         input[type="text"]:focus,
         input[type="password"]:focus,
-        input[type="tel"]:focus,
+        input[type="number"]:focus,
         input[type="date"]:focus,
         input[type="email"]:focus {
           background-color: #ddd;
@@ -276,6 +282,35 @@ export default function MintRealEstate() {
         }}
         required
       />
+      <label for="detail">
+        <b>Detail</b>
+      </label>
+      <textarea
+        name="detail"
+        id="detail"
+        onChange={(e) => {
+          setDetail(e.target.value);
+        }}
+        cols="30"
+        rows="10"
+        className="w-full bg-gray-300"
+        placeholder="   Enter Detail"
+        required
+      ></textarea>
+      <label for="direct">
+        <b>People</b>
+      </label>
+      <input
+        type="number"
+        placeholder="Enter People"
+        name="people"
+        id="direct"
+        min={1}
+        onChange={(e) => {
+          setPeople(e.target.value);
+        }}
+        required
+      />
       <hr></hr>
       <button
         type="submit"
@@ -293,7 +328,9 @@ export default function MintRealEstate() {
             area,
             toilet,
             bedRoom,
-            direct
+            direct,
+            detail,
+            Number(people)
           );
         }}
       >
