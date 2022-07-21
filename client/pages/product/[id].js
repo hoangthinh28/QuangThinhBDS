@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useMoralis } from "react-moralis";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -10,11 +9,12 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
+import Axios from "axios";
+
 export default function Product() {
   const router = useRouter();
   const id = router.query.id;
 
-  const { Moralis, isInitialized } = useMoralis();
   const [rsList, setRsList] = useState();
   const [pdList, setPdList] = useState([]);
   const [number, setNumber] = useState(1);
@@ -34,37 +34,23 @@ export default function Product() {
   };
 
   useEffect(() => {
-    async function fetchSigleRsList() {
-      const RealEstate = Moralis.Object.extend("RealEstate");
-      const query = new Moralis.Query(RealEstate);
-      const result = await query.get(id);
-      let rsArray = [];
+    fetchSigleRsList();
+  }, []);
 
-      rsArray.push({
-        id: result.id,
-        title: result.attributes.title,
-        direct: result.attributes.direct,
-        price: result.attributes.price,
-        area: result.attributes.area,
-        floor: result.attributes.floor,
-        bedroom: result.attributes.bedRoom,
-        toilet: result.attributes.toilet,
-        imgURL: result.attributes.imgURL,
-        location: result.attributes.location,
-        address: result.attributes.address,
-        building: result.attributes.building,
-        roomCode: result.attributes.roomCode,
-        detail: result.attributes.detail,
-        people: result.attributes.people,
+  async function fetchSigleRsList() {
+    let promise = Axios({
+      url: `http://localhost:5000/api/realEstate/${id}`,
+      method: "GET",
+    });
+    promise
+      .then((rs) => {
+        console.log(rs.data);
+        setPdList(rs.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      setPdList(rsArray);
-      setRsList(result);
-    }
-    if (isInitialized) {
-      fetchSigleRsList();
-      console.log(pdList);
-    }
-  });
+  }
 
   return (
     <div className="pb-6">
@@ -87,7 +73,7 @@ export default function Product() {
                   <p>/</p>
                 </div>
                 <div className="ml-2">
-                  <p className="font-bold text-xs">{each.title}</p>
+                  <p className="font-bold text-xs">{each.Title}</p>
                 </div>
               </div>
             </div>
@@ -96,10 +82,10 @@ export default function Product() {
                 <button className="absolute right-1 top p-3 text-white bg-cyan-500 rounded hover:bg-cyan-600 font-bold">
                   Reserve or Book Now!
                 </button>
-                <h1 className="text-2xl font-bold">{each.title}</h1>
+                <h1 className="text-2xl font-bold">{each.Title}</h1>
                 <div className="flex items-center text-sm gap-2">
                   <FontAwesomeIcon icon={faLocationDot} />
-                  <span className="font-medium text-base">{each.address}</span>
+                  <span className="font-medium text-base">{each.Address}</span>
                 </div>
                 <div className="flex flex-wrap justify-between">
                   <img
@@ -141,20 +127,20 @@ export default function Product() {
                           <span>
                             <b>Bedroom</b>
                           </span>
-                          <p className="ml-7 font-medium">{each.bedroom}</p>
+                          <p className="ml-7 font-medium">{each.MaxRoom}</p>
                         </div>
                         <div className="flex border-b py-2">
                           <span>
                             <b>Toilet</b>
                           </span>
-                          <p className="ml-14 font-medium">{each.toilet}</p>
+                          <p className="ml-14 font-medium">{each.Toilet}</p>
                         </div>
                         <div className="flex border-b py-2">
                           <span>
                             <b>Area</b>
                           </span>
                           <p className="ml-16 font-medium">
-                            {each.area}m<sup>2</sup>
+                            {each.Area}m<sup>2</sup>
                           </p>
                         </div>
                       </div>
@@ -163,13 +149,13 @@ export default function Product() {
                           <span>
                             <b>People</b>
                           </span>
-                          <p className="ml-10 font-medium">{each.people}</p>
+                          <p className="ml-10 font-medium">{each.People}</p>
                         </div>
                         <div className="flex border-b py-2">
                           <span>
                             <b>Building</b>
                           </span>
-                          <p className="ml-7 font-medium">{each.building}</p>
+                          <p className="ml-7 font-medium">{each.Building}</p>
                         </div>
                         <div className="flex border-b py-2">
                           <span>
@@ -185,7 +171,7 @@ export default function Product() {
                       <span>
                         <b>Detail</b>
                       </span>
-                      <p className="ml-5 font-medium">{each.detail}</p>
+                      <p className="ml-5 font-medium">{each.Detail}</p>
                     </div>
                   </div>
                   <div className="p-4 shadow-[0_1px_4px_rgba(0,0,0,0.16)] bg-yellow-200 w-1/3 ">
@@ -236,7 +222,7 @@ export default function Product() {
                     <div className="flex py-2 justify-between">
                       <label className="font-medium text-2xl">Total</label>
                       <span className="font-medium text-2xl">
-                        {each.price * number} ETH
+                        {each.Price * number} ETH
                       </span>
                     </div>
                     <button className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600">
@@ -258,10 +244,10 @@ export default function Product() {
                   <th>Direction</th>
                 </tr>
                 <tr className="bg-slate-300">
-                  <td>{each.roomCode}</td>
-                  <td>{each.building}</td>
-                  <td>{each.floor}</td>
-                  <td>{each.direct}</td>
+                  <td>{each.RoomCode}</td>
+                  <td>{each.Building}</td>
+                  <td>{each.Floor}</td>
+                  <td>{each.Direct}</td>
                 </tr>
               </table>
             </div>

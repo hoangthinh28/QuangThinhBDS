@@ -1,6 +1,11 @@
-import React, { useState } from "react";
-import { useMoralis } from "react-moralis";
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
 import { useRouter } from "next/router";
+import axios from "axios";
+import QTMarket from "../../artifacts/contracts/QTMarket.sol/QTMarket.json";
+import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
+import { nftaddress, nftmarketaddress } from "../../config";
 
 export default function MintRealEstate() {
   const router = useRouter();
@@ -19,46 +24,77 @@ export default function MintRealEstate() {
   const [direct, setDirect] = useState("");
   const [people, setPeople] = useState("");
   const [detail, setDetail] = useState("");
+  const [addressUser, setAddressUser] = useState([]);
 
-  const { Moralis, isInitialized } = useMoralis();
+  useEffect(() => {
+    connect();
+  });
 
-  const createNewProduct = (
-    title,
-    building,
-    floor,
-    price,
-    roomCode,
-    location,
-    img,
-    address,
-    area,
-    toilet,
-    bedroom,
-    direct,
-    detail,
-    people
-  ) => {
-    const newRealEstate = Moralis.Object.extend("RealEstate");
-    const realEstate = new newRealEstate();
-    realEstate.set("roomCode", roomCode);
-    realEstate.set("price", price);
-    realEstate.set("floor", floor);
-    realEstate.set("imgURL", img);
-    realEstate.set("area", area);
-    realEstate.set("toilet", toilet);
-    realEstate.set("building", building);
-    realEstate.set("address", address);
-    realEstate.set("location", location);
-    realEstate.set("title", title);
-    realEstate.set("bedRoom", bedroom);
-    realEstate.set("direct", direct);
-    realEstate.set("detail", detail);
-    realEstate.set("people", people);
-    realEstate.set("user", Moralis.User.current());
-    realEstate.save();
+  async function connect() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    setAddressUser(signerAddress);
+  }
+
+  let data = {
+    Title: title,
+    RoomCode: roomCode,
+    Price: price,
+    Location: location,
+    Address: address,
+    Direct: direct,
+    Floor: floor,
+    MaxRoom: bedRoom,
+    imgURL: img,
+    Area: area,
+    Toilet: toilet,
+    People: people,
+    Detail: detail,
+    Building: building,
+    ethAddress: addressUser,
+  };
+
+  async function createSale(url) {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+
+    let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
+    let transaction = await contract.mintToken(url);
+    let tx = await transaction.wait();
+    console.log(tx);
+    let event = tx.events[0];
+    let value = event.args[2];
+    let tokenId = value.toNumber();
+    const pricePerDay = ethers.utils.parseUnits(price.toString(), "ether");
+
+    contract = new ethers.Contract(nftmarketaddress, QTMarket.abi, signer);
+    let listingPrice = await contract.getListingPrice();
+    listingPrice = listingPrice.toString();
+
+    transaction = await contract.makeMarketItem(
+      nftaddress,
+      tokenId,
+      pricePerDay,
+      { value: listingPrice }
+    );
+    await transaction.wait();
     router.push("/");
-    console.log(realEstate);
-    return realEstate;
+  }
+
+  const createData = () => {
+    // console.log(data);
+    // let promise = axios({
+    //   url: `http://localhost:5000/api/realEstate/`,
+    //   method: "POST",
+    //   data: data,
+    // });
+    const url = axios.post(`http://localhost:5000/api/realEstate/`, data);
+    createSale(url);
   };
 
   return (
@@ -315,24 +351,7 @@ export default function MintRealEstate() {
       <button
         type="submit"
         class=" py-4 px-5 border-none bg-green-400 w-full opacity-90 my-4 mx-0 cursor-pointer hover:opacity-100 text-white text-xl"
-        onClick={() => {
-          createNewProduct(
-            title,
-            building,
-            floor,
-            price,
-            roomCode,
-            location,
-            img,
-            address,
-            area,
-            toilet,
-            bedRoom,
-            direct,
-            detail,
-            Number(people)
-          );
-        }}
+        onClick={createData}
       >
         Mint
       </button>

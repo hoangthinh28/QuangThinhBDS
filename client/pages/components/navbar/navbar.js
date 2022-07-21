@@ -1,8 +1,9 @@
-import { useState } from "react";
-import WalletCard from "../wallet/WalletCard";
-import { useMoralis } from "react-moralis";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import Axios from "axios";
 
 function NavLink({ to, children }) {
   return (
@@ -104,8 +105,39 @@ function MobileNav({ open, setOpen }) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const { isAuthenticated, logout, user } = useMoralis();
   const router = useRouter();
+
+  const [address, setAddress] = useState([]);
+  const [isLogin, setLogin] = useState(false);
+  useEffect(() => {
+    connect();
+  }, []);
+  async function login(address) {
+    let promise = Axios({
+      url: "http://localhost:5000/api/user/",
+      method: "POST",
+      data: { ethAddress: address },
+    });
+    promise
+      .then((result) => {
+        console.log(result.data);
+        // console.log(this.state.taskId);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+    setLogin(true);
+  }
+  async function connect() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    login(signerAddress);
+    console.log(signerAddress);
+    setAddress(signerAddress);
+  }
 
   const trimPublicAddress = (string, numberOfCharacter) => {
     return `${string.slice(0, numberOfCharacter)}...${string.slice(
@@ -184,44 +216,30 @@ export default function Navbar() {
             {" "}
             <NavLink to="/whitepaper1">White paper 1.1</NavLink>
           </div>
-          {isAuthenticated ? (
-            <div className="flex text-center mt-3">
-              <div className="flex ">
-                {user.get("isAdmin") && (
-                  <div
-                    className={
-                      router.pathname == "/mint-realestate"
-                        ? "border-b-4 border-red-500"
-                        : ""
-                    }
-                  >
-                    <NavLink to="/mint-realestate">Mint</NavLink>
-                  </div>
-                )}
-                <div
-                  className={
-                    router.pathname == "/profile/[id]"
-                      ? "border-b-4 border-red-500"
-                      : ""
-                  }
-                >
-                  <Link href="/profile/[id]" as={`/profile/${user.id}`}>
-                    {trimPublicAddress(user.get("ethAddress"), 5)}
-                  </Link>
-                </div>
+          {isLogin ? (
+            <div className="flex">
+              <div
+                className={
+                  router.pathname == "/mint-realestate"
+                    ? "border-b-4 border-red-500 pt-2"
+                    : "pt-2"
+                }
+              >
+                <NavLink to="/mint-realestate">Mint</NavLink>
               </div>
-              <div>
-                <button
-                  className="ml-2 text-white bg-cyan-500 rounded hover:bg-cyan-600  p-2"
-                  type="button"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              </div>
+              <span className="px-4 py-2  text-base rounded-full text-white  bg-gray-600 ">
+                {trimPublicAddress(address, 6)}
+              </span>
             </div>
           ) : (
-            <WalletCard />
+            <button
+              onClick={connect}
+              type="button"
+              className=""
+              id="options-menu"
+            >
+              Connect
+            </button>
           )}
         </div>
       </div>

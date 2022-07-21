@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 
 export default function MainProduct(props) {
+
   return (
     <div className="flex items-center justify-center">
       <div className="mb-10 w-2/4">

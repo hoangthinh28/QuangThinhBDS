@@ -1,38 +1,29 @@
 import React, { useState, useEffect } from "react";
 import MainProduct from "./components/feature/MainProduct";
-import { useMoralis } from "react-moralis";
+import Axios from "axios";
 
 export default function RealEstate() {
-  const { Moralis, isInitialized } = useMoralis();
   const [rsList, setRsList] = useState();
   const [pdList, setPdList] = useState([]);
 
   useEffect(() => {
-    async function fetchRsList() {
-      const RealEstate = Moralis.Object.extend("RealEstate");
-      const query = new Moralis.Query(RealEstate);
-      const result = await query.find();
-      let rsArray = [];
-      result.forEach((e) => {
-        rsArray.push({
-          id: e.id,
-          image: e.attributes.imgURL,
-          title: e.attributes.title,
-          area: e.attributes.area,
-          room: e.attributes.bedRoom,
-          toilet: e.attributes.toilet,
-          direction: e.attributes.direct,
-          price: e.attributes.price,
-        });
-      });
-
-      setPdList(rsArray);
-      setRsList(result);
-    }
-    if (isInitialized) {
-      fetchRsList();
-    }
+    fetchRsList();
   });
+
+  async function fetchRsList() {
+    let promise = Axios({
+      url: "http://localhost:5000/api/realEstate/",
+      method: "GET",
+    });
+    promise
+      .then((rs) => {
+        // console.log(rs.data);
+        setPdList(rs.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div>
@@ -43,15 +34,15 @@ export default function RealEstate() {
         {pdList.map((each) => {
           return (
             <MainProduct
-              key={each.id}
-              id={each.id}  
-              image={each.image}
-              title={each.title}
-              area={each.area}
-              room={each.room}
-              toilet={each.toilet}
-              direction={each.direction}
-              price={each.price}
+              key={each.RealEstateId}
+              id={each.RealEstateId}
+              image={each.imgURL}
+              title={each.Title}
+              area={each.Area}
+              room={each.MaxRoom}
+              toilet={each.Toilet}
+              direction={each.Direct}
+              price={each.Price}
             />
           );
         })}
