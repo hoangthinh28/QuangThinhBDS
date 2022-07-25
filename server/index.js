@@ -18,10 +18,14 @@ app.get("/", (req, res) => {
 const userRoutes = require("./src/routes/user.routes");
 //import realEstate routes
 const realEstateRoutes = require("./src/routes/realEstate.routes");
+const dateBookingRoutes = require("./src/routes/dateBooking.routes");
+
 //create user routes
 app.use("/api/user", userRoutes);
 //create realEstate routes
 app.use("/api/realEstate", realEstateRoutes);
+app.use("/api/datebooking", dateBookingRoutes);
+
 app.listen(port, () => {
   console.log(`Express is running at port ${port}`);
 });

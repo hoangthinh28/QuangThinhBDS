@@ -1,10 +1,10 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("KBMarket", function () {
+describe("QTMarket", function () {
   it("Should mint and trade NFTs", async function () {
     // test to receive contract addresses
-    const Market = await ethers.getContractFactory("KBMarket");
+    const Market = await ethers.getContractFactory("QTMarket");
     const market = await Market.deploy();
     await market.deployed();
     const marketAddress = market.address;
@@ -19,15 +19,16 @@ describe("KBMarket", function () {
     listingPrice = listingPrice.toString();
 
     const auctionPrice = ethers.utils.parseUnits("100", "ether");
+    // test datesBooked
 
     // test for minting
     await nft.mintToken("https-t1");
     await nft.mintToken("https-t2");
 
-    await market.makeMarketItem(nftContractAddress, 1, auctionPrice, {
+    await market.makeMarketItem(nftContractAddress, 1, auctionPrice, [], {
       value: listingPrice,
     });
-    await market.makeMarketItem(nftContractAddress, 2, auctionPrice, {
+    await market.makeMarketItem(nftContractAddress, 2, auctionPrice, [], {
       value: listingPrice,
     });
 
@@ -36,9 +37,23 @@ describe("KBMarket", function () {
     const [_, buyerAddress] = await ethers.getSigners();
 
     // create a market sale with address, id and price
-    await market.connect(buyerAddress).createMarketSale(nftContractAddress, 1, {
-      value: auctionPrice,
-    });
+    await market
+      .connect(buyerAddress)
+      .addDatesBooked(nftContractAddress, 1, ["27/02/2022", "30/02/2022"], {
+        value: auctionPrice,
+      });
+
+    await market
+      .connect(buyerAddress)
+      .addDatesBooked(nftContractAddress, 1, ["30/02/2022", "31/02/2022"], {
+        value: auctionPrice,
+      });
+
+    await market
+      .connect(buyerAddress)
+      .addDatesBooked(nftContractAddress, 2, ["29/02/2022"], {
+        value: auctionPrice,
+      });
 
     let items = await market.fetchMarketTokens();
 
@@ -48,11 +63,12 @@ describe("KBMarket", function () {
 
         const tokenUri = await nft.tokenURI(i.tokenId);
         let item = {
-          price: i.price.toString(),
+          pricePerDay: i.pricePerDay.toString(),
           tokenId: i.tokenId.toString(),
           seller: i.seller,
           owner: i.owner,
           tokenUri,
+          datesBooked: i.datesBooked.toString(),
         };
         return item;
       })

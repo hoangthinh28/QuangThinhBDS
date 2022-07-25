@@ -80,6 +80,7 @@ export default function MintRealEstate() {
       nftaddress,
       tokenId,
       pricePerDay,
+      [],
       { value: listingPrice }
     );
     await transaction.wait();
@@ -87,12 +88,6 @@ export default function MintRealEstate() {
   }
 
   const createData = () => {
-    // console.log(data);
-    // let promise = axios({
-    //   url: `http://localhost:5000/api/realEstate/`,
-    //   method: "POST",
-    //   data: data,
-    // });
     const url = axios.post(`http://localhost:5000/api/realEstate/`, data);
     createSale(url);
   };

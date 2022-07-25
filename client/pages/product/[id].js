@@ -9,6 +9,12 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
+import { nftaddress, nftmarketaddress } from "../../config";
+import Web3Modal from "web3modal";
+import { BigNumber, ethers } from "ethers";
+
+import QTMarket from "../../artifacts/contracts/QTMarket.sol/QTMarket.json";
+
 import Axios from "axios";
 
 export default function Product() {
@@ -18,6 +24,7 @@ export default function Product() {
   const [rsList, setRsList] = useState();
   const [pdList, setPdList] = useState([]);
   const [number, setNumber] = useState(1);
+  const [address, setAddress] = useState([]);
 
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
@@ -35,7 +42,17 @@ export default function Product() {
 
   useEffect(() => {
     fetchSigleRsList();
+    connect();
   }, []);
+
+  async function connect() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    setAddress(signerAddress);
+  }
 
   async function fetchSigleRsList() {
     let promise = Axios({
@@ -50,6 +67,36 @@ export default function Product() {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  async function rentRealEstate(nft) {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      nftmarketaddress,
+      QTMarket.abi,
+      signer
+    );
+
+    console.log("price ", nft.Price.toString());
+
+    let a = BigNumber.from(nft.Price);
+    console.log(a.toString());
+
+    const pricePerDay = ethers.utils.parseUnits(a.toString(), "ether");
+    console.log(pricePerDay);
+
+    const transaction = await contract.addDatesBooked(
+      nftaddress,
+      nft.RealEstateId,
+      [],
+      { value: pricePerDay }
+    );
+    console.log(transaction);
+    await transaction.wait();
+    router.push("/");
   }
 
   return (
@@ -225,7 +272,10 @@ export default function Product() {
                         {each.Price * number} ETH
                       </span>
                     </div>
-                    <button className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600">
+                    <button
+                      className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
+                      onClick={() => rentRealEstate(each)}
+                    >
                       Reserve or Book Now!
                     </button>
                   </div>
