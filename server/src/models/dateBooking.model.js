@@ -6,7 +6,9 @@ var BookingTable = function (realEstate) {
   this.Address = realEstate.Address;
   this.imgURL = realEstate.imgURL;
   this.Price = realEstate.Price;
-  this.datesBooked = realEstate.datesBooked;
+  this.Checkint = realEstate.Checkint;
+  this.Checkout = realEstate.Checkout;
+  this.RealEstateId = realEstate.RealEstateId;
   this.ethAddress = realEstate.ethAddress;
 };
 
@@ -24,9 +26,9 @@ BookingTable.getAllBooking = (result) => {
 };
 
 // get realestate by ID from BD
-BookingTable.getBookingTableByID = (id, result) => {
+BookingTable.getBookingTableByETH = (id, result) => {
   dbConn.query(
-    "SELECT * FROM BookingTable WHERE BookingID = ?",
+    "SELECT * FROM BookingTable WHERE ethAddress = ?",
     id,
     (err, res) => {
       if (err) {
@@ -41,6 +43,9 @@ BookingTable.getBookingTableByID = (id, result) => {
 
 //create new user
 BookingTable.createBookingTable = (realEstateReqData, result) => {
+  //select * from bookingtable	where Checkint = ? and Checkout = ?
+  //if exist => return;
+  //else
   dbConn.query(
     "INSERT INTO BookingTable SET ?",
     realEstateReqData,
@@ -55,6 +60,24 @@ BookingTable.createBookingTable = (realEstateReqData, result) => {
     }
   );
 };
+
+//query checkin, checkout
+BookingTable.getDate = (Title, result) => {
+  dbConn.query(
+    "select Checkint, Checkout from BookingTable where RealEstateId = ?",
+    Title,
+    (err, res) => {
+      if (err) {
+        console.log("Error while fetching Booking by Title", err);
+        result(null, err);
+      } else {
+        console.log("BookingTable data fetch successfully");
+        result(null, res);
+      }
+    }
+  );
+};
+
 // // update real estate
 // BookingTable.updateBookingTable = (BookingID, realEstateReqData, result) => {
 //   dbConn.query(

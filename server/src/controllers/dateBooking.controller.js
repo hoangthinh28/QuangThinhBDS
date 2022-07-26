@@ -14,7 +14,7 @@ exports.getDateBookingList = (req, res) => {
 // get realestate
 exports.getDateBookingByID = (req, res) => {
   // console.log('get user by id');
-  dateBookingModel.getBookingTableByID(req.params.id, (err, realEstate) => {
+  dateBookingModel.getBookingTableByETH(req.params.id, (err, realEstate) => {
     if (err) res.send(err);
     console.log("Single booking data: ", realEstate);
     res.send(realEstate);
@@ -41,6 +41,16 @@ exports.createNewDateBooking = (req, res) => {
       }
     );
   }
+};
+
+// get realestate
+exports.getDateBookingByTitle = (req, res) => {
+  // console.log('get user by id');
+  dateBookingModel.getDate(req.params.id, (err, realEstate) => {
+    if (err) res.send(err);
+    console.log("Single booking date data: ", realEstate);
+    res.send(realEstate);
+  });
 };
 
 //update realestate

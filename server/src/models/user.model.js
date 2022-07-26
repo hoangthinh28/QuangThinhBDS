@@ -7,7 +7,6 @@ var User = function (user) {
   this.ethAddress = user.ethAddress;
   this.CreateAt = new Date();
   this.isAdmin = user.isAdmin;
-  // this.Address=
 };
 
 //get all user
@@ -55,16 +54,8 @@ User.createUser = (userReqData, result) => {
 // update user
 User.updateUser = (UserId, userReqData, result) => {
   dbConn.query(
-    "UPDATE user SET Username=?, Email=?, Avatar=?, ethAddress=?, CreateAt=?, isAdmin=? WHERE UserId= ?",
-    [
-      userReqData.Username,
-      userReqData.Email,
-      userReqData.Avatar,
-      userReqData.ethAddress,
-      userReqData.CreateAt,
-      userReqData.isAdmin,
-      UserId,
-    ],
+    "UPDATE user SET Username=?, Email=?, Avatar=? WHERE ethAddress= ?",
+    [userReqData.Username, userReqData.Email, userReqData.Avatar, UserId],
     (err, res) => {
       if (err) {
         console.log("Errorr while updating the user");

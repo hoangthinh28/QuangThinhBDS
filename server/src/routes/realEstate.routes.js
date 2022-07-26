@@ -1,20 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const realEstateController = require('../controllers/realEstate.controller');
+const realEstateController = require("../controllers/realEstate.controller");
 
 // get all realestate
-router.get('/', realEstateController.getRealEstateList);
+router.get("/", realEstateController.getRealEstateList);
 // get realestate by ID
-router.get('/:id', realEstateController.getRealEstateByID);
+router.get("/:id", realEstateController.getRealEstateByID);
+router.get("/address/:id", realEstateController.getRealEstateByETH);
 
 // // create new realestate
-router.post('/', realEstateController.createNewRealEstate);
+router.post("/", realEstateController.createNewRealEstate);
 
 // update realestate
-router.put('/:id', realEstateController.updateRealEstate);
+router.put("/:id", realEstateController.updateRealEstate);
 
 //delete user
-router.delete('/:id', realEstateController.deleteRealEstate);
+router.delete("/:id", realEstateController.deleteRealEstate);
 
 module.exports = router;

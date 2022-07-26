@@ -48,6 +48,21 @@ RealEstate.getRealEstateByID = (id, result) => {
   );
 };
 
+RealEstate.getRealEstateByETH = (id, result) => {
+  dbConn.query(
+    "SELECT * FROM realestate WHERE ethAddress = ?",
+    id,
+    (err, res) => {
+      if (err) {
+        console.log("Error while fetching realestate by id", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
 //create new user
 RealEstate.createRealEstate = (realEstateReqData, result) => {
   dbConn.query(

@@ -17,7 +17,6 @@ export default function RealEstate() {
     });
     promise
       .then((rs) => {
-        // console.log(rs.data);
         setPdList(rs.data);
       })
       .catch((err) => {

@@ -9,7 +9,6 @@ import {
 import Link from "next/link";
 
 export default function MainProduct(props) {
-
   return (
     <div className="flex items-center justify-center">
       <div className="mb-10 w-2/4">
@@ -23,7 +22,7 @@ export default function MainProduct(props) {
         <div>
           <div key={props.key}>
             <div>
-              <Link href="/product/[id]" as={`/product/${props.id}`}>
+              <Link href="/product/[id]" as={`/product/${props.id}`} passHref>
                 <a className="font-semibold text-xl text-left hover:underline">
                   <h3 className="text-left">{props.title}</h3>
                 </a>

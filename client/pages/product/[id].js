@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-
+import add from "date-fns/add";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
@@ -21,7 +21,6 @@ export default function Product() {
   const router = useRouter();
   const id = router.query.id;
 
-  const [rsList, setRsList] = useState();
   const [pdList, setPdList] = useState([]);
   const [number, setNumber] = useState(1);
   const [address, setAddress] = useState([]);
@@ -30,7 +29,7 @@ export default function Product() {
   const [date, setDate] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: add(new Date(), { days: 1 }),
       key: "selection",
     },
   ]);
@@ -61,13 +60,38 @@ export default function Product() {
     });
     promise
       .then((rs) => {
-        console.log(rs.data);
         setPdList(rs.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  let arrDate = [];
+  const startDate = [format(date[0].startDate, "dd/MM/yyyy")];
+  const endDate = [format(date[0].endDate, "dd/MM/yyyy")];
+  arrDate.push(startDate, endDate);
+  const diff = Math.abs(
+    date[0].endDate.getTime() - date[0].startDate.getTime()
+  );
+  const noofdays = Math.ceil(diff / (1000 * 3600 * 24));
+  let days = BigNumber.from(noofdays);
+
+  const data = pdList.map((x) => {
+    return {
+      RealEstateTitle: x.Title,
+      RoomCode: x.RoomCode,
+      Address: x.Address,
+      imgURL: x.imgURL,
+      Price: x.Price * noofdays,
+      Checkint: format(date[0].startDate, "dd/MM/yyyy"),
+      Checkout: format(date[0].endDate, "dd/MM/yyyy"),
+      RealEstateId: x.RealEstateId,
+      ethAddress: address,
+    };
+  });
+
+  console.log(data[0]);
 
   async function rentRealEstate(nft) {
     const web3Modal = new Web3Modal();
@@ -79,15 +103,8 @@ export default function Product() {
       QTMarket.abi,
       signer
     );
-
-    console.log("price ", nft.Price.toString());
-
-    let a = BigNumber.from(nft.Price);
-    console.log(a.toString());
-
+    let a = BigNumber.from(nft.Price * days);
     const pricePerDay = ethers.utils.parseUnits(a.toString(), "ether");
-    console.log(pricePerDay);
-
     const transaction = await contract.addDatesBooked(
       nftaddress,
       nft.RealEstateId,
@@ -96,8 +113,19 @@ export default function Product() {
     );
     console.log(transaction);
     await transaction.wait();
+    await createData(nft);
     router.push("/");
   }
+
+  const createData = (nft) => {
+    Axios.post(`http://localhost:5000/api/datebooking/`, data[0])
+      .then((rs) => {
+        console.log(rs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="pb-6">
@@ -209,7 +237,7 @@ export default function Product() {
                             <b>Rent Cost</b>
                           </span>
                           <p className="ml-5 font-medium">
-                            {each.price} ETH/month
+                            {each.price} ETH/day
                           </p>
                         </div>
                       </div>
@@ -225,7 +253,7 @@ export default function Product() {
                     <div className="flex py-2 justify-between">
                       <label className="text-xl font-medium">Price</label>
                       <h2 className="text-lg">
-                        <b>{each.price}ETH</b> (1 month)
+                        <b>{each.price}ETH</b> (1 day)
                       </h2>
                     </div>
 
@@ -260,7 +288,7 @@ export default function Product() {
                         type="number"
                         className="w-8 text-center ml-12 mr-2"
                         min={1}
-                        max={2}
+                        max={1}
                         onChange={handleChangeNumber}
                         value={number}
                       />{" "}
@@ -269,7 +297,7 @@ export default function Product() {
                     <div className="flex py-2 justify-between">
                       <label className="font-medium text-2xl">Total</label>
                       <span className="font-medium text-2xl">
-                        {each.Price * number} ETH
+                        {each.Price * number * days} ETH
                       </span>
                     </div>
                     <button

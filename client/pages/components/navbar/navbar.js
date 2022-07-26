@@ -227,8 +227,14 @@ export default function Navbar() {
               >
                 <NavLink to="/mint-realestate">Mint</NavLink>
               </div>
-              <span className="px-4 py-2  text-base rounded-full text-white  bg-gray-600 ">
-                {trimPublicAddress(address, 6)}
+              <span
+                className={
+                  router.pathname == "/profile"
+                    ? "px-3 py-2  text-base rounded-full text-white  bg-red-600"
+                    : "px-3 py-2  text-base rounded-full text-white  bg-gray-600 "
+                }
+              >
+                <NavLink to="/profile">{trimPublicAddress(address, 6)}</NavLink>
               </span>
             </div>
           ) : (

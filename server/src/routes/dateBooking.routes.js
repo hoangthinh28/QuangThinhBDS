@@ -6,7 +6,7 @@ const dateBookingController = require("../controllers/dateBooking.controller");
 // get all realestate
 router.get("/", dateBookingController.getDateBookingList);
 // get realestate by ID
-router.get("/:id", dateBookingController.getDateBookingByID);
+router.get("/date/:id", dateBookingController.getDateBookingByID);
 
 // // create new realestate
 router.post("/", dateBookingController.createNewDateBooking);

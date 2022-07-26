@@ -1,0 +1,319 @@
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import Axios from "axios";
+
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { BookedProduct } from "./components/feature/BookedProduct";
+import Product from "./components/feature/Product";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+
+export default function Profile() {
+  const [userList, setUserList] = useState([]);
+  const [pdList, setPdList] = useState([]);
+  const [rsList, setRsList] = useState([]);
+  const [address, setAddress] = useState([]);
+
+  const [value, setValue] = React.useState("1");
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
+
+  let dataUpdate = {
+    Username: user,
+    Email: email,
+    Avatar: image,
+  };
+
+  const updateDateUser = () => {
+    Axios.put(`http://localhost:5000/api/user/id/${address}`, dataUpdate);
+  };
+
+  useEffect(() => {
+    connect();
+    fetchSingleUser();
+    fetchBooked();
+    fetchCreated();
+  }, [address]);
+
+  async function connect() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    setAddress(signerAddress);
+  }
+
+  async function fetchSingleUser() {
+    let promise = Axios({
+      url: `http://localhost:5000/api/user/address/${address}`,
+      method: "GET",
+    });
+    promise
+      .then((rs) => {
+        setUserList(rs.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function fetchBooked() {
+    let promise = Axios({
+      url: `http://localhost:5000/api/datebooking/date/${address}`,
+      method: "GET",
+    });
+    promise
+      .then((rs) => {
+        setPdList(rs.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function fetchCreated() {
+    let promise = Axios({
+      url: `http://localhost:5000/api/realEstate/address/${address}`,
+      method: "GET",
+    });
+    promise
+      .then((rs) => {
+        setRsList(rs.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  return (
+    <div>
+      {userList.map((each) => {
+        return (
+          <div class="min-h-full d-flex justify-content-center align-items-center ">
+            <div class="w-full border-none rounded-2xl p-2 relative bg-white h-full">
+              <div class="h-24">
+                <img
+                  src="https://png.pngtree.com/thumb_back/fh260/background/20190220/ourmid/pngtree-business-technology-dark-blue-background-point-line-image_7559.jpg"
+                  class="img-fluid  h-52 w-full rounded-t-xl"
+                />
+              </div>
+              <div class=" flex justify-center relative text-center">
+                <div class="flex justify-center border-3 border-solid  bg-white top-8 h-48 w-48 rounded-full">
+                  <img
+                    src={each.Avatar}
+                    class="rounded-circle h-48 w-48 mt-0.5 rounded-full"
+                    width="80"
+                  />
+                </div>
+              </div>
+              <div class=" text-center ">
+                <h2 class="pt-3 text-4xl text-black">{each.Username}</h2>
+
+                <span class="pt-2 text-2xl  text-black text-muted d-block mb-2">
+                  {each.ethAddress}
+                </span>
+                <br></br>
+                <br></br>
+
+                <button
+                  class="h-7 w-36 rounded-full bg-cyan-600 btn-dark pb-5 text-center text-white hover:bg-cyan-800"
+                  onClick={handleShow}
+                >
+                  Edit Profile
+                </button>
+
+                <>
+                  <Modal
+                    className="flex justify-center text-center w-full h-full"
+                    show={show}
+                    onHide={handleClose}
+                  >
+                    <div className="flex justify-center text-3xl text-black ">
+                      <div
+                        id="authentication-modal"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        class="overflow-y-auto fixed pt-36 ml-20 pl-96 w-full md:inset-0 h-modal md:h-full "
+                      >
+                        <div class="relative p-px w-full max-w-md h-full md:h-auto  bg-black">
+                          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <button
+                              type="button"
+                              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                              data-modal-toggle="authentication-modal"
+                              onClick={handleClose}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"
+                                ></path>
+                              </svg>
+                              <span class="sr-only">Close modal</span>
+                            </button>
+                            <div class="py-6 px-6 lg:px-8">
+                              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                                Update Profile
+                              </h3>
+                              <hr className="w-full"></hr>
+                              <Form>
+                                <div>
+                                  <label
+                                    for="username"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  >
+                                    Set a new username
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    placeholder="Enter username"
+                                    onChange={(e) => {
+                                      setUser(e.target.value);
+                                    }}
+                                    required
+                                  />
+                                </div>
+                                <div>
+                                  <label
+                                    for="email"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  >
+                                    Set a new email
+                                  </label>
+                                  <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    placeholder="Enter email"
+                                    onChange={(e) => {
+                                      setEmail(e.target.value);
+                                    }}
+                                    required
+                                  />
+                                </div>
+                                <div>
+                                  <label
+                                    for="username"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  >
+                                    Set a Avatar
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="image"
+                                    id="image"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    placeholder="Enter image"
+                                    onChange={(e) => {
+                                      setImage(e.target.value);
+                                    }}
+                                    required
+                                  />
+                                </div>
+                                <hr className="p-5"></hr>
+                                <button
+                                  className="text-white text-2xl bg-violet-800 rounded h-10 w-48"
+                                  onClick={updateDateUser}
+                                  type="submit"
+                                  colorScheme="purple"
+                                >
+                                  {" "}
+                                  Change
+                                </button>
+                              </Form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Modal>
+                </>
+              </div>
+              <Box sx={{ width: "100%", typography: "body1" }}>
+                <TabContext value={value}>
+                  <Box
+                    className="flex justify-center pt-5"
+                    sx={{ borderBottom: 1, borderColor: "divider" }}
+                  >
+                    <TabList
+                      onChange={handleChange}
+                      aria-label="lab API tabs example"
+                    >
+                      <Tab label="Booked" value="1" />
+                      <Tab label="Created" value="2" />
+                      {/* <Tab label="Item Three" value="3" /> */}
+                    </TabList>
+                  </Box>
+                  <TabPanel className="grid grid-cols-3 gap-5" value="1">
+                    {pdList === null ? (
+                      <h1>No product</h1>
+                    ) : (
+                      pdList.map((each) => {
+                        return (
+                          <BookedProduct
+                            key={each.BookingID}
+                            imgURL={each.imgURL}
+                            RealEstateTitle={each.RealEstateTitle}
+                            Address={each.Address}
+                            RoomCode={each.RoomCode}
+                            Checkint={each.Checkint}
+                            Checkout={each.Checkout}
+                            Price={each.Price}
+                          />
+                        );
+                      })
+                    )}
+                  </TabPanel>
+                  <TabPanel className="grid grid-cols-3 gap-5" value="2">
+                    {rsList.map((each) => {
+                      return (
+                        <Product
+                          key={each.RealEstateId}
+                          image={each.imgURL}
+                          title={each.Title}
+                          area={each.Area}
+                          room={each.MaxRoom}
+                          toilet={each.Toilet}
+                          direction={each.Direct}
+                          price={each.Price}
+                        />
+                      );
+                    })}
+                  </TabPanel>
+                  {/* <TabPanel className="flex justify-center text-center" value="3">Item Three</TabPanel> */}
+                </TabContext>
+              </Box>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

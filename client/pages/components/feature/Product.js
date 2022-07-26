@@ -10,7 +10,7 @@ import {
 export default function Product(props) {
   return (
     <div>
-      <div className="">
+      <div className="p-3 hover:shadow-[0_4px_0px_rgb(0,0,0)]">
         <div>
           <img
             key={props.key}
@@ -53,7 +53,7 @@ export default function Product(props) {
           </div>
         </div>
         <div className="price">
-          <h3 className="font-semibold text-end	text-xl">{props.price}</h3>
+          <h3 className="font-semibold text-end	text-xl">{props.price} ETH</h3>
         </div>
       </div>
     </div>
