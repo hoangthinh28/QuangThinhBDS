@@ -199,22 +199,27 @@ export default function Navbar() {
           >
             <NavLink to="/realestate">Real Estate</NavLink>
           </div>
-          <div
+          {/* <div
             className={
               router.pathname == "/team" ? "border-b-4 border-red-500" : ""
             }
           >
             <NavLink to="/team">My Team</NavLink>
-          </div>
+          </div> */}
           <div
             className={
               router.pathname == "/whitepaper1"
                 ? "border-b-4 border-red-500"
-                : ""
+                : "pl-3"
             }
           >
-            {" "}
-            <NavLink to="/whitepaper1">White paper 1.1</NavLink>
+            <a
+              href="https://drive.google.com/file/d/1ProA7NbR91Vq3YjKidrxk6l1mOqdTLnb/view"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              White paper 1.1
+            </a>
           </div>
           {isLogin ? (
             <div className="flex">

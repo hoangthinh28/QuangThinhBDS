@@ -114,7 +114,7 @@ export default function Product() {
     console.log(transaction);
     await transaction.wait();
     await createData(nft);
-    router.push("/");
+    router.push("/profile");
   }
 
   const createData = (nft) => {

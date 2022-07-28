@@ -93,7 +93,7 @@ export default function MintRealEstate() {
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 w-3/5 m-auto">
       <style jsx>{`
         input[type="text"],
         input[type="password"],
@@ -324,7 +324,7 @@ export default function MintRealEstate() {
         }}
         cols="30"
         rows="10"
-        className="w-full bg-gray-300"
+        className="w-full bg-gray-100"
         placeholder="   Enter Detail"
         required
       ></textarea>

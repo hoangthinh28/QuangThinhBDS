@@ -272,8 +272,8 @@ export default function Profile() {
                     </TabList>
                   </Box>
                   <TabPanel className="grid grid-cols-3 gap-5" value="1">
-                    {pdList === null ? (
-                      <h1>No product</h1>
+                    {pdList === [] ? (
+                      <h1>No product booked!</h1>
                     ) : (
                       pdList.map((each) => {
                         return (
@@ -292,20 +292,24 @@ export default function Profile() {
                     )}
                   </TabPanel>
                   <TabPanel className="grid grid-cols-3 gap-5" value="2">
-                    {rsList.map((each) => {
-                      return (
-                        <Product
-                          key={each.RealEstateId}
-                          image={each.imgURL}
-                          title={each.Title}
-                          area={each.Area}
-                          room={each.MaxRoom}
-                          toilet={each.Toilet}
-                          direction={each.Direct}
-                          price={each.Price}
-                        />
-                      );
-                    })}
+                    {rsList === [] ? (
+                      <h1>No product created!</h1>
+                    ) : (
+                      rsList.map((each) => {
+                        return (
+                          <Product
+                            key={each.RealEstateId}
+                            image={each.imgURL}
+                            title={each.Title}
+                            area={each.Area}
+                            room={each.MaxRoom}
+                            toilet={each.Toilet}
+                            direction={each.Direct}
+                            price={each.Price}
+                          />
+                        );
+                      })
+                    )}
                   </TabPanel>
                   {/* <TabPanel className="flex justify-center text-center" value="3">Item Three</TabPanel> */}
                 </TabContext>
