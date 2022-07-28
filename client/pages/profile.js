@@ -271,24 +271,11 @@ export default function Profile() {
                       {/* <Tab label="Item Three" value="3" /> */}
                     </TabList>
                   </Box>
-                  <TabPanel className="grid grid-cols-3 gap-5" value="1">
+                  <TabPanel className="" value="1">
                     {pdList === [] ? (
                       <h1>No product booked!</h1>
                     ) : (
-                      pdList.map((each) => {
-                        return (
-                          <BookedProduct
-                            key={each.BookingID}
-                            imgURL={each.imgURL}
-                            RealEstateTitle={each.RealEstateTitle}
-                            Address={each.Address}
-                            RoomCode={each.RoomCode}
-                            Checkint={each.Checkint}
-                            Checkout={each.Checkout}
-                            Price={each.Price}
-                          />
-                        );
-                      })
+                      <BookedProduct data={pdList} />
                     )}
                   </TabPanel>
                   <TabPanel className="grid grid-cols-3 gap-5" value="2">

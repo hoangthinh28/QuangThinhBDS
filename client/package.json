@@ -45,6 +45,7 @@
     "react-slideshow-image": "^4.0.1",
     "reactjs-pdf-view": "^1.0.8",
     "reactstrap": "^9.1.2",
+    "semantic-ui-react": "^2.1.3",
     "web3": "^1.7.4",
     "web3modal": "^1.9.8"
   },

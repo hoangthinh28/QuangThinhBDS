@@ -199,13 +199,7 @@ export default function Navbar() {
           >
             <NavLink to="/realestate">Real Estate</NavLink>
           </div>
-          {/* <div
-            className={
-              router.pathname == "/team" ? "border-b-4 border-red-500" : ""
-            }
-          >
-            <NavLink to="/team">My Team</NavLink>
-          </div> */}
+
           <div
             className={
               router.pathname == "/whitepaper1"
