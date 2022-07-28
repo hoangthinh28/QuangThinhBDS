@@ -132,7 +132,7 @@ export default function Profile() {
                 <br></br>
 
                 <button
-                  class="h-7 w-36 rounded-full bg-cyan-600 btn-dark pb-5 text-center text-white hover:bg-cyan-800"
+                  class="w-44 h-12 rounded-full bg-cyan-500 btn-dark text-center text-white hover:bg-cyan-800"
                   onClick={handleShow}
                 >
                   Edit Profile
@@ -239,7 +239,7 @@ export default function Profile() {
                                 </div>
                                 <hr className="p-5"></hr>
                                 <button
-                                  className="text-white text-2xl bg-violet-800 rounded h-10 w-48"
+                                  className="text-white text-2xl bg-cyan-500 rounded h-10 w-48"
                                   onClick={updateDateUser}
                                   type="submit"
                                   colorScheme="purple"

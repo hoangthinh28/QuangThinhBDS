@@ -229,7 +229,7 @@ export default function Navbar() {
               <span
                 className={
                   router.pathname == "/profile"
-                    ? "px-3 py-2  text-base rounded-full text-white  bg-red-600"
+                    ? "px-3 py-2  text-base rounded-full text-white  bg-cyan-500"
                     : "px-3 py-2  text-base rounded-full text-white  bg-gray-600 "
                 }
               >
