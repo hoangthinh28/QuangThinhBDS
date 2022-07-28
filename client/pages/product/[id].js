@@ -253,7 +253,7 @@ export default function Product() {
                     <div className="flex py-2 justify-between">
                       <label className="text-xl font-medium">Price</label>
                       <h2 className="text-lg">
-                        <b>{each.price}ETH</b> (1 day)
+                        <b>{each.Price} ETH</b> ({noofdays} day)
                       </h2>
                     </div>
 
@@ -280,24 +280,11 @@ export default function Product() {
                         />
                       )}
                     </div>
-                    <div className="flex py-2 justify-between">
-                      <label className="font-medium text-base">
-                        Number of apartments
-                      </label>
-                      <input
-                        type="number"
-                        className="w-8 text-center ml-12 mr-2"
-                        min={1}
-                        max={1}
-                        onChange={handleChangeNumber}
-                        value={number}
-                      />{" "}
-                      apartment
-                    </div>
+
                     <div className="flex py-2 justify-between">
                       <label className="font-medium text-2xl">Total</label>
                       <span className="font-medium text-2xl">
-                        {each.Price * number * days} ETH
+                        {each.Price * days} ETH
                       </span>
                     </div>
                     <button
