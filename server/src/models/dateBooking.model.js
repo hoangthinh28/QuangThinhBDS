@@ -55,6 +55,10 @@ BookingTable.createBookingTable = (realEstateReqData, result) => {
         result(null, err);
       } else {
         console.log("BookingTable data created successfully");
+        dbConn.query(
+          "UPDATE realestate SET countBooked=countBooked + 1 WHERE RealEstateId= ?",
+          [realEstateReqData.RealEstateId]
+        );
         result(null, res);
       }
     }

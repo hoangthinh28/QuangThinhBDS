@@ -17,6 +17,7 @@ var RealEstate = function (realEstate) {
   this.Building = realEstate.Building;
   this.CreateAt = new Date();
   this.ethAddress = realEstate.ethAddress;
+  this.countBooked = 0;
 };
 
 //get all realestate
@@ -79,34 +80,35 @@ RealEstate.createRealEstate = (realEstateReqData, result) => {
     }
   );
 };
-// update real estate
-RealEstate.updateRealEstate = (RealEstateId, realEstateReqData, result) => {
+
+// update countBooked real estate
+RealEstate.updateRealEstate = (RealEstateId, result) => {
   dbConn.query(
-    "UPDATE realestate SET Title=?,RoomCode=?, Price=?, Location=?, Address=?, Direct=?, Floor=?, imgURL=?, Area=?, Toilet=?, People=?, Detail=?, Building=?, CreateAt=?, UserId=? WHERE RealEstateId= ?",
-    [
-      realEstateReqData.Title,
-      realEstateReqData.RoomCode,
-      realEstateReqData.Price,
-      realEstateReqData.Location,
-      realEstateReqData.Address,
-      realEstateReqData.Direct,
-      realEstateReqData.Floor,
-      realEstateReqData.imgURL,
-      realEstateReqData.Area,
-      realEstateReqData.Toilet,
-      realEstateReqData.People,
-      realEstateReqData.Detail,
-      realEstateReqData.Building,
-      realEstateReqData.CreateAt,
-      realEstateReqData.UserId,
-      RealEstateId,
-    ],
+    "UPDATE realestate SET countBooked=countBooked + 1 WHERE RealEstateId= ?",
+    [RealEstateId],
     (err, res) => {
       if (err) {
         console.log("Errorr while updating the user");
         result(null, err);
       } else {
         console.log("RealEstate updated successfully");
+        result(null, res);
+      }
+    }
+  );
+};
+
+//update countViewed real estate
+RealEstate.updateViewedRealEstate = (RealEstateId, result) => {
+  dbConn.query(
+    "UPDATE realestate SET countViewed=countViewed + 1 WHERE RealEstateId= ?",
+    [RealEstateId],
+    (err, res) => {
+      if (err) {
+        console.log("Errorr while updating the user");
+        result(null, err);
+      } else {
+        console.log("RealEstate updated viewed successfully");
         result(null, res);
       }
     }
@@ -123,6 +125,38 @@ RealEstate.deleteRealEstate = (id, result) => {
         console.log("Error while deleting the realestate");
         result(null, err);
       } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+//get most booked top 3
+RealEstate.getTop3BookedRealEstate = (result) => {
+  dbConn.query(
+    "SELECT * from realestate order by countBooked DESC limit 3",
+    (err, res) => {
+      if (err) {
+        console.log("Error while fetching top 3 booked realEstate", err);
+        result(null, err);
+      } else {
+        console.log("User fetched top 3 booked successfully");
+        result(null, res);
+      }
+    }
+  );
+};
+
+//get most viewed top 3
+RealEstate.getTop3ViewedRealEstate = (result) => {
+  dbConn.query(
+    "SELECT * from realestate order by countViewed DESC limit 3",
+    (err, res) => {
+      if (err) {
+        console.log("Error while fetching top 3 viewed realEstate", err);
+        result(null, err);
+      } else {
+        console.log("User fetched top 3 viewed successfully");
         result(null, res);
       }
     }

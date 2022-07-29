@@ -6,11 +6,12 @@ import {
   faBathtub,
   faCompass,
   faEye,
+  faCalendarDays,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Axios from "axios";
 
-export default function Product(props) {
+export default function SubProduct(props) {
   const updateViewedRs = (id) => {
     Axios.put(`http://localhost:5000/api/realEstate/view/${id}`);
   };
@@ -32,13 +33,8 @@ export default function Product(props) {
             as={`/product/${props.id}`}
             onClick={() => updateViewedRs(props.id)}
           >
-            <a>
-              <h3
-                className="font-semibold hover:underline"
-                onClick={() => updateViewedRs(props.id)}
-              >
-                {props.title}
-              </h3>
+            <a onClick={() => updateViewedRs(props.id)}>
+              <h3 className="font-semibold hover:underline">{props.title}</h3>
             </a>
           </Link>
         </div>
@@ -80,9 +76,12 @@ export default function Product(props) {
           <div>
             <div className="pl-4">
               <span>
-                <FontAwesomeIcon icon={faEye} className="text-gray pr-2.5" />
+                <FontAwesomeIcon
+                  icon={faCalendarDays}
+                  className="text-gray pr-2.5"
+                />
               </span>
-              <span>{props.view}</span>
+              <span>{props.book}</span>
             </div>
           </div>
         </div>

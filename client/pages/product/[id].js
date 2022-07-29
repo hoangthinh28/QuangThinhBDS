@@ -22,7 +22,6 @@ export default function Product() {
   const id = router.query.id;
 
   const [pdList, setPdList] = useState([]);
-  const [number, setNumber] = useState(1);
   const [address, setAddress] = useState([]);
 
   const [openDate, setOpenDate] = useState(false);
@@ -34,15 +33,12 @@ export default function Product() {
     },
   ]);
 
-  const handleChangeNumber = (e) => {
-    setNumber(e.target.value);
-    console.log("Number:", e.target.value);
-  };
-
   useEffect(() => {
     fetchSigleRsList();
     connect();
   }, []);
+
+  console.log(pdList);
 
   async function connect() {
     const web3Modal = new Web3Modal();

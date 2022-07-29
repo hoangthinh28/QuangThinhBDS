@@ -8,6 +8,7 @@ import {
   faBathtub,
   faCompass,
 } from "@fortawesome/free-solid-svg-icons";
+import Axios from "axios";
 
 export default function RealEstatePage(props) {
   const { data } = props;
@@ -26,6 +27,10 @@ export default function RealEstatePage(props) {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
+  };
+
+  const updateViewedRs = (id) => {
+    Axios.put(`http://localhost:5000/api/realEstate/view/${id}`);
   };
 
   return (
@@ -51,9 +56,16 @@ export default function RealEstatePage(props) {
                       <Link
                         href="/product/[id]"
                         as={`/product/${props.RealEstateId}`}
-                        passHref
+                        onClick={() => {
+                          updateViewedRs(props.RealEstateId);
+                        }}
                       >
-                        <a className="font-semibold text-xl text-left hover:underline">
+                        <a
+                          className="font-semibold text-xl text-left hover:underline"
+                          onClick={() => {
+                            updateViewedRs(props.RealEstateId);
+                          }}
+                        >
                           <h3 className="text-left">{props.Title}</h3>
                         </a>
                       </Link>

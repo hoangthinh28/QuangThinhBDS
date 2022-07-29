@@ -14,6 +14,7 @@ router.post("/", realEstateController.createNewRealEstate);
 
 // update realestate
 router.put("/:id", realEstateController.updateRealEstate);
+router.put("/view/:id", realEstateController.updateCountedViewRealEstate);
 
 //delete user
 router.delete("/:id", realEstateController.deleteRealEstate);

@@ -286,6 +286,7 @@ export default function Profile() {
                         return (
                           <Product
                             key={each.RealEstateId}
+                            id={each.RealEstateId}
                             image={each.imgURL}
                             title={each.Title}
                             area={each.Area}
@@ -293,6 +294,7 @@ export default function Profile() {
                             toilet={each.Toilet}
                             direction={each.Direct}
                             price={each.Price}
+                            view={each.countViewed}
                           />
                         );
                       })

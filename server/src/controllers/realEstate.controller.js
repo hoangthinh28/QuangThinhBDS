@@ -2,7 +2,6 @@ const RealEstateModel = require("../models/realEstate.model");
 
 //get all user list
 exports.getRealEstateList = (req, res) => {
-  // console.log('here all user list');
   RealEstateModel.getAllRealEstate((err, realEstate) => {
     console.log("We are here");
     if (err) res.send(err);
@@ -11,9 +10,16 @@ exports.getRealEstateList = (req, res) => {
   });
 };
 
+exports.getTop3Booked = (req, res) => {
+  RealEstateModel.getTop3BookedRealEstate((err, realEstate) => {
+    if (err) res.send(err);
+    console.log("Top 3 Booked: ", realEstate);
+    res.send(realEstate);
+  });
+};
+
 // get realestate
 exports.getRealEstateByID = (req, res) => {
-  // console.log('get user by id');
   RealEstateModel.getRealEstateByID(req.params.id, (err, realEstate) => {
     if (err) res.send(err);
     console.log("single user data", realEstate);
@@ -23,10 +29,18 @@ exports.getRealEstateByID = (req, res) => {
 
 // get realestate
 exports.getRealEstateByETH = (req, res) => {
-  // console.log('get user by id');
   RealEstateModel.getRealEstateByETH(req.params.id, (err, realEstate) => {
     if (err) res.send(err);
     console.log("single user data", realEstate);
+    res.send(realEstate);
+  });
+};
+
+//get top 3 viewed
+exports.getTop3Viewed = (req, res) => {
+  RealEstateModel.getTop3ViewedRealEstate((err, realEstate) => {
+    if (err) res.send(err);
+    console.log("Top 3 Viewed: ", realEstate);
     res.send(realEstate);
   });
 };
@@ -68,6 +82,17 @@ exports.updateRealEstate = (req, res) => {
     );
   }
 };
+
+exports.updateCountedViewRealEstate = (req, res) => {
+  RealEstateModel.updateViewedRealEstate(req.params.id, (err, realEstate) => {
+    if (err) res.send(err);
+    res.json({
+      status: true,
+      message: "RealEstate updated count viewed Successfully",
+    });
+  });
+};
+
 //delete user
 exports.deleteRealEstate = (req, res) => {
   RealEstateModel.deleteRealEstate(req.params.id, (err, realEstate) => {
