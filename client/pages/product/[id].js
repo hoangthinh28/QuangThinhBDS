@@ -472,8 +472,7 @@ export default function Product() {
                   <DayPicker
                     disabled={getDateBooked}
                     mode="range"
-                    min={new Date()}
-                    className="m-auto my-3"
+                    className="m-auto my-3 text-red-600 font-bold"
                   />
                 </div>
 
