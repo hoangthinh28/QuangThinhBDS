@@ -23,6 +23,7 @@ export default function Product() {
 
   const [pdList, setPdList] = useState([]);
   const [address, setAddress] = useState([]);
+  const [listDate, setListDate] = useState([]);
 
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
@@ -36,9 +37,8 @@ export default function Product() {
   useEffect(() => {
     fetchSigleRsList();
     connect();
+    getListDate();
   }, []);
-
-  console.log(pdList);
 
   async function connect() {
     const web3Modal = new Web3Modal();
@@ -80,14 +80,12 @@ export default function Product() {
       Address: x.Address,
       imgURL: x.imgURL,
       Price: x.Price * noofdays,
-      Checkint: format(date[0].startDate, "dd/MM/yyyy"),
-      Checkout: format(date[0].endDate, "dd/MM/yyyy"),
+      Checkint: date[0].startDate,
+      Checkout: date[0].endDate,
       RealEstateId: x.RealEstateId,
       ethAddress: address,
     };
   });
-
-  console.log(data[0]);
 
   async function rentRealEstate(nft) {
     const web3Modal = new Web3Modal();
@@ -122,6 +120,27 @@ export default function Product() {
         console.log(err);
       });
   };
+
+  async function getListDate() {
+    let promise = Axios({
+      url: `http://localhost:5000/api/datebooking/date/booking/${id}`,
+      method: "GET",
+    });
+    promise
+      .then((rs) => {
+        setListDate(rs.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  //
+  // const getDates = Object.values(listDate[1]);
+  // const getDates1 = Object.values(listDate[2]);
+  // let a = new Date(getDates[0]);
+  // let b = new Date(getDates[1]);
+  // let c = new Date(getDates1[0]);
+  // let d = new Date(getDates1[1]);
 
   return (
     <div className="pb-6">
@@ -270,9 +289,9 @@ export default function Product() {
                         <DateRange
                           editableDateInputs={true}
                           onChange={(item) => setDate([item.selection])}
-                          moveRangeOnFirstSelection={false}
                           ranges={date}
-                          className="absolute -bottom-60 z-50"
+                          className="absolute -bottom-56 z-50"
+                          minDate={new Date()}
                         />
                       )}
                     </div>

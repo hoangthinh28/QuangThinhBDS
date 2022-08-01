@@ -8,6 +8,8 @@ router.get("/", dateBookingController.getDateBookingList);
 // get realestate by ID
 router.get("/date/:id", dateBookingController.getDateBookingByID);
 
+router.get("/date/booking/:id", dateBookingController.getDateBookingByTitle);
+
 // // create new realestate
 router.post("/", dateBookingController.createNewDateBooking);
 

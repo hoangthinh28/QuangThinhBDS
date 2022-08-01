@@ -41,9 +41,16 @@ export function BookedProduct(props) {
                 <p>Room code: {props.RoomCode}</p>
               </div>
               <div className="text-left text-lg">
-                <p>Check in: 14h00 {props.Checkint}</p>
-                <p>Check out: 12h00 {props.Checkout}</p>
+                <p>
+                  Check in: 14h00{" "}
+                  {new Date(props.Checkint).toLocaleDateString()}
+                </p>
+                <p>
+                  Check out: 12h00{" "}
+                  {new Date(props.Checkout).toLocaleDateString()}
+                </p>
               </div>
+              {console.log(props.Checkint)}
               <div className="price">
                 <h3 className="font-semibold text-end	text-xl">
                   Total: {props.Price} ETH
