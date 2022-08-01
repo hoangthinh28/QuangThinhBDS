@@ -9,6 +9,9 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+
 import { nftaddress, nftmarketaddress } from "../../config";
 import Web3Modal from "web3modal";
 import { BigNumber, ethers } from "ethers";
@@ -134,20 +137,24 @@ export default function Product() {
         console.log(err);
       });
   }
-  //
-  // const getDates = Object.values(listDate[1]);
-  // const getDates1 = Object.values(listDate[2]);
-  // let a = new Date(getDates[0]);
-  // let b = new Date(getDates[1]);
-  // let c = new Date(getDates1[0]);
-  // let d = new Date(getDates1[1]);
+
+  let getDateBooked = [];
+
+  listDate.map((date) => {
+    return getDateBooked.push({
+      from: new Date(date.Checkint),
+      to: new Date(date.Checkout),
+    });
+  });
+
+  console.log(getDateBooked);
 
   return (
     <div className="pb-6">
       {pdList.map((each) => {
         return (
           <div className="mt-9">
-            <div className="flex justify-center w-full max-w-3xl ml-2">
+            <div className="flex justify-center w-full max-w-3xl">
               <div className="ml-1">
                 <Link href="/">
                   <a>
@@ -209,6 +216,11 @@ export default function Product() {
                     alt=""
                   />
                 </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center items-center px-44">
+              <div className="w-2/3">
                 <div className="flex">
                   <div className="w-2/3">
                     <div className="flex gap-20">
@@ -264,214 +276,220 @@ export default function Product() {
                       <p className="ml-5 font-medium">{each.Detail}</p>
                     </div>
                   </div>
-                  <div className="p-4 shadow-[0_1px_4px_rgba(0,0,0,0.16)] bg-yellow-200 w-1/3 ">
-                    <div className="flex py-2 justify-between">
-                      <label className="text-xl font-medium">Price</label>
-                      <h2 className="text-lg">
-                        <b>{each.Price} ETH</b> ({noofdays} day)
-                      </h2>
-                    </div>
-
-                    <div className="flex flex-col justify-between">
-                      <div>
-                        <label className="font-medium text-base">
-                          Check in Date
-                        </label>
-                        <span
-                          onClick={() => setOpenDate(!openDate)}
-                          className="ml-6 cursor-pointer bg-white p-1 px-5"
-                        >{`${[format(date[0].startDate, "dd/MM/yyyy")]} to ${[
-                          format(date[0].endDate, "dd/MM/yyyy"),
-                        ]}`}</span>
-                      </div>
-
-                      {openDate && (
-                        <DateRange
-                          editableDateInputs={true}
-                          onChange={(item) => setDate([item.selection])}
-                          ranges={date}
-                          className="absolute -bottom-56 z-50"
-                          minDate={new Date()}
+                </div>
+                <h1 className="font-semibold text-2xl pb-3">
+                  LIST OF APARTMENTS FOR RENT (1)
+                </h1>
+                <table className="p-4 w-3/4">
+                  <tr className="py-3 text-left">
+                    <th>Room Code</th>
+                    <th>Building</th>
+                    <th>Floor</th>
+                    <th>Direction</th>
+                  </tr>
+                  <tr className="bg-slate-300">
+                    <td>{each.RoomCode}</td>
+                    <td>{each.Building}</td>
+                    <td>{each.Floor}</td>
+                    <td>{each.Direct}</td>
+                  </tr>
+                </table>
+                <div className="pt-6">
+                  <h1 className="font-semibold text-2xl py-3">
+                    FURNITURE, EQUIPMENT
+                  </h1>
+                  <table className="p-4 w-3/4">
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwed9c29cb/images/Furniture-Icon/bed.svg"
+                          alt=""
                         />
-                      )}
-                    </div>
-
-                    <div className="flex py-2 justify-between">
-                      <label className="font-medium text-2xl">Total</label>
-                      <span className="font-medium text-2xl">
-                        {each.Price * days} ETH
-                      </span>
-                    </div>
-                    <button
-                      className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
-                      onClick={() => rentRealEstate(each)}
-                    >
-                      Reserve or Book Now!
-                    </button>
-                  </div>
+                        <span className="pl-3">Bed + mattress</span>
+                      </td>
+                      <td className="flex ml-40 pl-1">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwf3358920/images/Furniture-Icon/desk_work.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Desk</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw9b363592/images/Furniture-Icon/dinner-table%201.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Dining table and chairs</span>
+                      </td>
+                      <td className="flex ml-28">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw3907e100/images/Furniture-Icon/wardrobe.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Wardrobe</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwfeade59b/images/Furniture-Icon/kitchen_cabinet.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Kitchen + Cabinets</span>
+                      </td>
+                      <td className="flex ml-32">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwd34cd67d/images/Furniture-Icon/shower_cabin.svg"
+                          alt=""
+                          className="pl-3"
+                        />
+                        <span className="pl-3">Freestanding bathtub</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw0fb39b1a/images/Furniture-Icon/air_conditioner.svg"
+                          alt=""
+                          className="pr-1"
+                        />
+                        <span className="pl-3">Air conditioning</span>
+                      </td>
+                      <td className="flex ml-40">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw1c65c917/images/Furniture-Icon/sofa.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Sofa</span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div className="pt-6">
+                  <h1 className="font-semibold text-2xl py-3">UTILITIES </h1>
+                  <table className="p-4 w-3/4">
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwaceb4762/images/Furniture-Icon/11-park.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Parking lot</span>
+                      </td>
+                      <td className="flex ml-40">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwa1ac88ea/images/Furniture-Icon/Beboi_trongnha.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Swimming pool</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwc2392472/images/Furniture-Icon/Co_danang.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Multi-purpose lawn</span>
+                      </td>
+                      <td className="flex ml-24">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw716db60c/images/Furniture-Icon/Sanbong.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Table tennis court</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwb51b7caa/images/Furniture-Icon/Sanchoi.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Children's playground</span>
+                      </td>
+                      <td className="flex ml-20 pd-2">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwa9b7bbcd/images/Furniture-Icon/badminton.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Badminton yard</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-white text-left flex border-b py-3">
+                      <td className="flex">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw4ef43c4f/images/Furniture-Icon/basketball-hoop%201.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Basketball yard</span>
+                      </td>
+                      <td className="flex ml-32">
+                        <img
+                          src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw397f28b6/images/Furniture-Icon/event-tent%201.svg"
+                          alt=""
+                        />
+                        <span className="pl-3">Landscape hut</span>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
               </div>
-            </div>
-            <div className="pl-48 pr-96">
-              <h1 className="font-semibold text-2xl pb-3">
-                LIST OF APARTMENTS FOR RENT (1)
-              </h1>
-              <table className="p-4 w-3/4">
-                <tr className="py-3 text-left">
-                  <th>Room Code</th>
-                  <th>Building</th>
-                  <th>Floor</th>
-                  <th>Direction</th>
-                </tr>
-                <tr className="bg-slate-300">
-                  <td>{each.RoomCode}</td>
-                  <td>{each.Building}</td>
-                  <td>{each.Floor}</td>
-                  <td>{each.Direct}</td>
-                </tr>
-              </table>
-            </div>
-            <div className="pl-48 pr-96 pt-6">
-              <h1 className="font-semibold text-2xl py-3">
-                FURNITURE, EQUIPMENT
-              </h1>
-              <table className="p-4 w-3/4">
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwed9c29cb/images/Furniture-Icon/bed.svg"
-                      alt=""
+
+              <div className="p-4 shadow-[0_1px_4px_rgba(0,0,0,0.16)] bg-yellow-200 mb-64">
+                <div className="flex py-2 justify-between">
+                  <label className="text-xl font-medium">Price</label>
+                  <h2 className="text-lg">
+                    <b>{each.Price} ETH</b> ({noofdays} day)
+                  </h2>
+                </div>
+
+                <div className="flex flex-col justify-between">
+                  <div>
+                    <label className="font-medium text-base">
+                      Check in Date
+                    </label>
+                    <span
+                      onClick={() => setOpenDate(!openDate)}
+                      className="ml-6 cursor-pointer bg-white p-1 px-5"
+                    >{`${[format(date[0].startDate, "dd/MM/yyyy")]} to ${[
+                      format(date[0].endDate, "dd/MM/yyyy"),
+                    ]}`}</span>
+                  </div>
+
+                  {openDate && (
+                    <DateRange
+                      editableDateInputs={true}
+                      onChange={(item) => setDate([item.selection])}
+                      ranges={date}
+                      className="absolute -bottom-2/3 z-50"
+                      minDate={new Date()}
                     />
-                    <span className="pl-3">Bed + mattress</span>
-                  </td>
-                  <td className="flex ml-40 pl-1">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwf3358920/images/Furniture-Icon/desk_work.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Desk</span>
-                  </td>
-                </tr>
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw9b363592/images/Furniture-Icon/dinner-table%201.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Dining table and chairs</span>
-                  </td>
-                  <td className="flex ml-28">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw3907e100/images/Furniture-Icon/wardrobe.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Wardrobe</span>
-                  </td>
-                </tr>
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwfeade59b/images/Furniture-Icon/kitchen_cabinet.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Kitchen + Cabinets</span>
-                  </td>
-                  <td className="flex ml-32">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwd34cd67d/images/Furniture-Icon/shower_cabin.svg"
-                      alt=""
-                      className="pl-3"
-                    />
-                    <span className="pl-3">Freestanding bathtub</span>
-                  </td>
-                </tr>
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw0fb39b1a/images/Furniture-Icon/air_conditioner.svg"
-                      alt=""
-                      className="pr-1"
-                    />
-                    <span className="pl-3">Air conditioning</span>
-                  </td>
-                  <td className="flex ml-40">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw1c65c917/images/Furniture-Icon/sofa.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Sofa</span>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div className="pl-48 pr-96 pt-6">
-              <h1 className="font-semibold text-2xl py-3">UTILITIES </h1>
-              <table className="p-4 w-3/4">
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwaceb4762/images/Furniture-Icon/11-park.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Parking lot</span>
-                  </td>
-                  <td className="flex ml-40">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwa1ac88ea/images/Furniture-Icon/Beboi_trongnha.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Swimming pool</span>
-                  </td>
-                </tr>
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwc2392472/images/Furniture-Icon/Co_danang.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Multi-purpose lawn</span>
-                  </td>
-                  <td className="flex ml-24">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw716db60c/images/Furniture-Icon/Sanbong.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Table tennis court</span>
-                  </td>
-                </tr>
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwb51b7caa/images/Furniture-Icon/Sanchoi.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Children's playground</span>
-                  </td>
-                  <td className="flex ml-20 pd-2">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dwa9b7bbcd/images/Furniture-Icon/badminton.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Badminton yard</span>
-                  </td>
-                </tr>
-                <tr className="bg-white text-left flex border-b py-3">
-                  <td className="flex">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw4ef43c4f/images/Furniture-Icon/basketball-hoop%201.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Basketball yard</span>
-                  </td>
-                  <td className="flex ml-32">
-                    <img
-                      src="https://stay.vinhomes.vn/on/demandware.static/-/Sites-vhm_leasing_en_master/default/dw397f28b6/images/Furniture-Icon/event-tent%201.svg"
-                      alt=""
-                    />
-                    <span className="pl-3">Landscape hut</span>
-                  </td>
-                </tr>
-              </table>
+                  )}
+
+                  <DayPicker
+                    disabled={getDateBooked}
+                    mode="range"
+                    min={new Date()}
+                    className="m-auto"
+                  />
+                </div>
+
+                <div className="flex py-2 justify-between">
+                  <label className="font-medium text-2xl">Total</label>
+                  <span className="font-medium text-2xl">
+                    {each.Price * days} ETH
+                  </span>
+                </div>
+                <button
+                  className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
+                  onClick={() => rentRealEstate(each)}
+                >
+                  Reserve or Book Now!
+                </button>
+              </div>
             </div>
           </div>
         );
