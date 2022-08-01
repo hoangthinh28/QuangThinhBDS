@@ -473,7 +473,7 @@ export default function Product() {
                     disabled={getDateBooked}
                     mode="range"
                     min={new Date()}
-                    className="m-auto"
+                    className="m-auto my-3"
                   />
                 </div>
 
