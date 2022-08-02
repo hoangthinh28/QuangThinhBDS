@@ -16,7 +16,7 @@ export default function RealEstatePage(props) {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -35,14 +35,14 @@ export default function RealEstatePage(props) {
 
   return (
     <>
-      <div>
+      <div className="grid grid-cols-3 gap-5">
         {currentItems.map((props) => {
           return (
             <div
               className="flex items-center justify-center"
               key={props.RealEstateId}
             >
-              <div className="mb-10 w-2/4">
+              <div className="mb-10 w-full p-4">
                 <div>
                   <img
                     src={props.imgURL}
