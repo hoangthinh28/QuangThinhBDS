@@ -478,11 +478,16 @@ export default function Product() {
                     captionLayout="dropdown"
                     modifiersStyles={{
                       disabled: {
-                        fontSize: "100%",
+                        fontSize: "20px",
                         fontStyle: "oblique",
                         fontWeight: "700",
                         textDecorationLine: "line-through",
                         color: "black",
+                      },
+                      today: {
+                        color: "red",
+                        fontWeight: "800",
+                        fontSize: "19px",
                       },
                     }}
                   />
