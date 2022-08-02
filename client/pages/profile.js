@@ -13,32 +13,79 @@ import Product from "./components/feature/Product";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { set } from "date-fns";
+import validator from 'validator';
 
 export default function Profile() {
   const [userList, setUserList] = useState([]);
   const [pdList, setPdList] = useState([]);
   const [rsList, setRsList] = useState([]);
   const [address, setAddress] = useState([]);
-
   const [value, setValue] = React.useState("1");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
+  const [userErr, setUserErr] = useState("");
+  const [userValid, setUserValid] = useState(false);
+  const [imageErr, setImageErr] = useState("");
+  const [imageValid, setImageValid] = useState(false);
+  const [emailErr, setEmailErr] = useState("");
+  const [emailValid, setEmailValid] = useState(false);
+  const validateImage = () => {
+    if (image.length < 1) {
+      setImageErr("Avatar require!");
+      setImageValid(false);
+      return;
+    }
+    if (!validator.isURL(image)) {
+      setImageErr("Avatar must be an URL!");
+      setImageValid(false);
+      return;
+    }
+    setImageErr('');
+    setImageValid(true);
+  }
+  const validateUser = () => {
+    if (user.length < 1) {
+      setUserErr("Username require!");
+      setUserValid(false);
+      return;
+    }
+    if (user.length > 20) {
+      setUserErr("Username too long!");
+      setUserValid(false);
+      return;
+    }
+    setUserErr("");
+    setUserValid(true);
+  }
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+  const checkEmail = () => {
+    if (email.length < 1) {
+      setEmailErr("Email require!");
+      setEmailValid(false);
+      return;
+    }
+    if (regex.test(email) === false) {
+      setEmailErr("Please enter validate email(name@gmail.com)!");
+      setEmailValid(false);
+      return;
+    }
+    setEmailErr("");
+    setEmailValid(true);
+  }
 
   let dataUpdate = {
     Username: user,
     Email: email,
     Avatar: image,
   };
-
   const updateDateUser = () => {
     Axios.put(`http://localhost:5000/api/user/id/${address}`, dataUpdate);
   };
@@ -137,7 +184,6 @@ export default function Profile() {
                 >
                   Edit Profile
                 </button>
-
                 <>
                   <Modal
                     className="flex justify-center text-center w-full h-full"
@@ -179,7 +225,7 @@ export default function Profile() {
                                 Update Profile
                               </h3>
                               <hr className="w-full"></hr>
-                              <Form>
+                              <Form >
                                 <div>
                                   <label
                                     for="username"
@@ -195,9 +241,13 @@ export default function Profile() {
                                     placeholder="Enter username"
                                     onChange={(e) => {
                                       setUser(e.target.value);
+                                      validateUser
                                     }}
+                                    onBlur={validateUser}
                                     required
                                   />
+                                  {userErr && <div className="validation text-red-700 text-base -mt-0" style={{ display: 'block' }}>*{userErr}</div>}
+
                                 </div>
                                 <div>
                                   <label
@@ -214,9 +264,12 @@ export default function Profile() {
                                     placeholder="Enter email"
                                     onChange={(e) => {
                                       setEmail(e.target.value);
+                                      checkEmail
                                     }}
+                                    onBlur={checkEmail}
                                     required
                                   />
+                                  {emailErr && <div className="validation text-red-700 text-base -mt-0" style={{ display: 'block' }}>*{emailErr}</div>}
                                 </div>
                                 <div>
                                   <label
@@ -233,9 +286,13 @@ export default function Profile() {
                                     placeholder="Enter image"
                                     onChange={(e) => {
                                       setImage(e.target.value);
+                                      validateImage
                                     }}
+                                    onBlur={validateImage}
                                     required
                                   />
+                                  {imageErr && <div className="validation text-red-700 text-base -mt-0" style={{ display: 'block' }}>*{imageErr}</div>}
+
                                 </div>
                                 <hr className="p-5"></hr>
                                 <button
@@ -243,6 +300,7 @@ export default function Profile() {
                                   onClick={updateDateUser}
                                   type="submit"
                                   colorScheme="purple"
+                                // onClick={submit}
                                 >
                                   {" "}
                                   Change
