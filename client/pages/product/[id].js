@@ -464,7 +464,7 @@ export default function Product() {
                       editableDateInputs={true}
                       onChange={(item) => setDate([item.selection])}
                       ranges={date}
-                      className="absolute -bottom-2/3 z-50"
+                      className="absolute ml-5 -bottom-2/3 z-50"
                       minDate={new Date()}
                     />
                   )}
@@ -472,7 +472,19 @@ export default function Product() {
                   <DayPicker
                     disabled={getDateBooked}
                     mode="range"
-                    className="m-auto my-3 text-red-600 font-bold"
+                    className="m-auto my-3 text-red-600"
+                    defaultMonth={new Date()}
+                    fromMonth={new Date()}
+                    captionLayout="dropdown"
+                    modifiersStyles={{
+                      disabled: {
+                        fontSize: "100%",
+                        fontStyle: "oblique",
+                        fontWeight: "700",
+                        textDecorationLine: "line-through",
+                        color: "black",
+                      },
+                    }}
                   />
                 </div>
 
