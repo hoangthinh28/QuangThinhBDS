@@ -6,10 +6,10 @@ import axios from "axios";
 import QTMarket from "../../artifacts/contracts/QTMarket.sol/QTMarket.json";
 import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import { nftaddress, nftmarketaddress } from "../../config";
+import validator from 'validator';
 
 export default function MintRealEstate() {
   const router = useRouter();
-
   const [title, setTitle] = useState("");
   const [building, setBuilding] = useState("");
   const [floor, setFloor] = useState("");
@@ -25,11 +25,266 @@ export default function MintRealEstate() {
   const [people, setPeople] = useState("");
   const [detail, setDetail] = useState("");
   const [addressUser, setAddressUser] = useState([]);
+  const [titleErr, setTitleErr] = useState("");
+  const [buildingErr, setBuildingErr] = useState("");
+  const [floorErr, setFloorErr] = useState("");
+  const [priceErr, setPriceErr] = useState("");
+  const [roomCodeErr, setRoomCodeErr] = useState("");
+  const [locationErr, setLocationErr] = useState("");
+  const [addErr, setAddErr] = useState("");
+  const [imgErr, setImgErr] = useState("");
+  const [areaErr, setAreaErr] = useState("");
+  const [toiletErr, setToiletErr] = useState("");
+  const [bedRoomErr, setBedRoomErr] = useState("");
+  const [directErr, setDirectErr] = useState("");
+  const [detailErr, setDetailErr] = useState("");
+  const [peopleErr, setPeopleErr] = useState("");
+  const [titleValid, setTitleValid] = useState(false);
+  const [buildingValid, setBuildingValid] = useState(false);
+  const [floorValid, setFloorValid] = useState(false);
+  const [priceValid, setPriceValid] = useState(false);
+  const [roomCodeValid, setRoomCodeValid] = useState(false);
+  const [locationValid, setLocationValid] = useState(false);
+  const [addValid, setAddValid] = useState(false);
+  const [imgValid, setImgValid] = useState(false);
+  const [areaValid, setAreaValid] = useState(false);
+  const [toiletValid, setToiletValid] = useState(false);
+  const [bedRoomValid, setBedRoomValid] = useState(false);
+  const [directValid, setDirectValid] = useState(false);
+  const [detailValid, setDetailValid] = useState(false);
+  const [peopleValid, setPeopleValid] = useState(false);
 
   useEffect(() => {
     connect();
   });
 
+  const validateTitle = () => {
+    if (title.length < 1) {
+      setTitleErr("Title require!");
+      setTitleValid(false);
+      return;
+    }
+    if (title.length > 200) {
+      setTitleErr("Title too long!");
+      setTitleValid(false);
+      return;
+    }
+    setTitleErr("");
+    setTitleValid(true);
+  }
+  const validateBuilding = () => {
+    if (building.length < 1) {
+      setBuildingErr("Building require!");
+      setBuildingValid(false);
+      return;
+    }
+    if (building.length > 200) {
+      setBuildingErr("Building too long!");
+      setBuildingValid(false);
+      return;
+    }
+    setBuildingErr("");
+    setBuildingValid(true);
+  }
+  const validateFloor = () => {
+    if (floor.length < 1) {
+      setFloorErr("Floor require!");
+      setFloorValid(false);
+      return;
+    }
+    if (!validator.isNumeric(floor)) {
+      setFloorErr("Floor must be numeric!");
+      setFloorValid(false);
+      return;
+    }
+    if (Number(floor) <= 0) {
+      setFloorErr("Floor must be greater than zero!");
+      setFloorValid(false);
+      return;
+    }
+    setFloorErr("");
+    setFloorValid(true);
+  }
+  const validatePrice = () => {
+    if (price.length < 1) {
+      setPriceErr("Price require!");
+      setPriceValid(false);
+      return;
+    }
+    if (!validator.isNumeric(price)) {
+      setPriceErr("Price must be numeric!");
+      setPriceValid(false);
+      return;
+    }
+    if (Number(price) <= 0) {
+      setPriceErr("Price must be greater than zero!");
+      setPriceValid(false);
+      return;
+    }
+    setPriceErr("");
+    setPriceValid(true);
+  }
+  const validateRoomCode = () => {
+    if (roomCode.length < 1) {
+      setRoomCodeErr("RoomCode require!");
+      setRoomCodeValid(false);
+      return;
+    }
+    if (roomCode.length > 200) {
+      setRoomCodeErr("RoomCode too long!");
+      setRoomCodeValid(false);
+      return;
+    }
+    setRoomCodeErr("");
+    setRoomCodeValid(true);
+  }
+  const validateLocation = () => {
+    if (location.length < 1) {
+      setLocationErr("Location require!");
+      setLocationValid(false);
+      return;
+    }
+    if (location.length > 200) {
+      setLocationErr("Location too long!");
+      setLocationValid(false);
+      return;
+    }
+    setLocationErr("");
+    setLocationValid(true);
+  }
+  const validateAdd = () => {
+    if (address.length < 1) {
+      setAddErr("Address require!");
+      setAddValid(false);
+      return;
+    }
+    if (address.length > 200) {
+      setAddErr("Address too long!");
+      setAddValid(false);
+      return;
+    }
+    setAddErr("");
+    setAddValid(true);
+  }
+
+  const validateImg = () => {
+    if (img.length < 1) {
+      setImgErr("Image require!");
+      setImgValid(false);
+      return;
+    }
+    if (!validator.isURL(img)) {
+      setImgErr("Image must be an URL!");
+      setImgValid(false);
+      return;
+    }
+    setImgErr('');
+    setImgValid(true);
+  }
+  const validateArea = () => {
+    if (area.length < 1) {
+      setAreaErr("Area require!");
+      setAreaValid(false);
+      return;
+    }
+    if (!validator.isNumeric(area)) {
+      setAreaErr("Area must be numeric!");
+      setAreaValid(false);
+      return;
+    }
+    if (Number(area) <= 0) {
+      setAreaErr("Area must be greater than zero!");
+      setAreaValid(false);
+      return;
+    }
+    setAreaErr("");
+    setAreaValid(true);
+  }
+  const validateToilet = () => {
+    if (toilet.length < 1) {
+      setToiletErr("Toilet require!");
+      setToiletValid(false);
+      return;
+    }
+    if (!validator.isNumeric(toilet)) {
+      setToiletErr("Toilet must be numeric!");
+      setToiletValid(false);
+      return;
+    }
+    if (Number(toilet) <= 0) {
+      setToiletErr("Toilet must be greater than zero!");
+      setToiletValid(false);
+      return;
+    }
+    setToiletErr("");
+    setToiletValid(true);
+  }
+  const validateBedRoom = () => {
+    if (bedRoom.length < 1) {
+      setBedRoomErr("BedRoom require!");
+      setBedRoomValid(false);
+      return;
+    }
+    if (!validator.isNumeric(bedRoom)) {
+      setBedRoomErr("BedRoom must be numeric!");
+      setBedRoomValid(false);
+      return;
+    }
+    if (Number(bedRoom) <= 0) {
+      setBedRoomErr("BedRoom must be greater than zero!");
+      setBedRoomValid(false);
+      return;
+    }
+    setBedRoomErr("");
+    setBedRoomValid(true);
+  }
+  const validateDirect = () => {
+    if (direct.length < 1) {
+      setDirectErr("Direct require!");
+      setDirectValid(false);
+      return;
+    }
+    if (direct.length > 200) {
+      setDirectErr("Direct too long!");
+      setDirectValid(false);
+      return;
+    }
+    setDirectErr("");
+    setDirectValid(true);
+  }
+  const validateDetail = () => {
+    if (detail.length < 1) {
+      setDetailErr("Detail require!");
+      setDetailValid(false);
+      return;
+    }
+    if (detail.length > 2000) {
+      setDetailErr("Detail too long!");
+      setDetailValid(false);
+      return;
+    }
+    setDetailErr("");
+    setDetailValid(true);
+  }
+  const validatePeople = () => {
+    if (people.length < 1) {
+      setPeopleErr("People require!");
+      setPeopleValid(false);
+      return;
+    }
+    if (!validator.isNumeric(people)) {
+      setPeopleErr("People must be numeric!");
+      setPeopleValid(false);
+      return;
+    }
+    if (Number(people) <= 0) {
+      setPeopleErr("People must be greater than zero!");
+      setPeopleValid(false);
+      return;
+    }
+    setPeopleErr("");
+    setPeopleValid(true);
+  }
   async function connect() {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -157,6 +412,7 @@ export default function MintRealEstate() {
         Please fill in this form to mint real estate.
       </p>
       <hr />
+
       <label for="title">
         <b>Title</b>
       </label>
@@ -167,9 +423,13 @@ export default function MintRealEstate() {
         id="email"
         onChange={(e) => {
           setTitle(e.target.value);
+          validateTitle
         }}
+        onBlur={validateTitle}
         required
       />
+      {titleErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{titleErr}</div>}
+
       <label for="building">
         <b>Building</b>
       </label>
@@ -180,9 +440,13 @@ export default function MintRealEstate() {
         id="building"
         onChange={(e) => {
           setBuilding(e.target.value);
+          validateBuilding
         }}
+        onBlur={validateBuilding}
         required
       />
+      {buildingErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{buildingErr}</div>}
+
       <label for="floor">
         <b>Floor</b>
       </label>
@@ -193,9 +457,13 @@ export default function MintRealEstate() {
         id="floor"
         onChange={(e) => {
           setFloor(e.target.value);
+          validateFloor
         }}
+        onBlur={validateFloor}
         required
       />
+      {floorErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{floorErr}</div>}
+
       <label for="price">
         <b>Price</b>
       </label>
@@ -206,9 +474,13 @@ export default function MintRealEstate() {
         id="price"
         onChange={(e) => {
           setPrice(e.target.value);
+          validatePrice
         }}
+        onBlur={validatePrice}
         required
       />
+      {priceErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{priceErr}</div>}
+
       <label for="roomCode">
         <b>Room Code</b>
       </label>
@@ -219,9 +491,13 @@ export default function MintRealEstate() {
         id="roomCode"
         onChange={(e) => {
           setRoomCode(e.target.value);
+          validateRoomCode
         }}
+        onBlur={validateRoomCode}
         required
       />
+      {roomCodeErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{roomCodeErr}</div>}
+
       <label for="location">
         <b>Location</b>
       </label>
@@ -232,9 +508,13 @@ export default function MintRealEstate() {
         id="location"
         onChange={(e) => {
           setLocation(e.target.value);
+          validateLocation
         }}
+        onBlur={validateLocation}
         required
       />
+      {locationErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{locationErr}</div>}
+
       <label for="address">
         <b>Address</b>
       </label>
@@ -245,9 +525,13 @@ export default function MintRealEstate() {
         id="address"
         onChange={(e) => {
           setAddress(e.target.value);
+          validateAdd
         }}
+        onBlur={validateAdd}
         required
       />
+      {addErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{addErr}</div>}
+
       <label for="imgUrl">
         <b>Image URL</b>
       </label>
@@ -258,9 +542,13 @@ export default function MintRealEstate() {
         id="imgURL"
         onChange={(e) => {
           setImg(e.target.value);
+          validateImg
         }}
+        onBlur={validateImg}
         required
       />
+      {imgErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{imgErr}</div>}
+
       <label for="area">
         <b>Area</b>
       </label>
@@ -271,9 +559,13 @@ export default function MintRealEstate() {
         id="area"
         onChange={(e) => {
           setArea(e.target.value);
+          validateArea
         }}
+        onBlur={validateArea}
         required
       />
+      {areaErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{areaErr}</div>}
+
       <label for="toilet">
         <b>Toilet</b>
       </label>
@@ -284,9 +576,13 @@ export default function MintRealEstate() {
         id="toilet"
         onChange={(e) => {
           setToiet(e.target.value);
+          validateToilet
         }}
+        onBlur={validateToilet}
         required
       />
+      {toiletErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{toiletErr}</div>}
+
       <label for="bedroom">
         <b>Bedroom</b>
       </label>
@@ -297,9 +593,13 @@ export default function MintRealEstate() {
         id="bedroom"
         onChange={(e) => {
           setBedroom(e.target.value);
+          validateBedRoom
         }}
+        onBlur={validateBedRoom}
         required
       />
+      {bedRoomErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{bedRoomErr}</div>}
+
       <label for="direct">
         <b>Direct</b>
       </label>
@@ -310,9 +610,13 @@ export default function MintRealEstate() {
         id="direct"
         onChange={(e) => {
           setDirect(e.target.value);
+          validateDirect
         }}
+        onBlur={validateDirect}
         required
       />
+      {directErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{directErr}</div>}
+
       <label for="detail">
         <b>Detail</b>
       </label>
@@ -321,13 +625,16 @@ export default function MintRealEstate() {
         id="detail"
         onChange={(e) => {
           setDetail(e.target.value);
+          validateDetail
         }}
+        onBlur={validateDetail}
         cols="30"
         rows="10"
         className="w-full bg-gray-100"
         placeholder="   Enter Detail"
         required
       ></textarea>
+      {detailErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{detailErr}</div>}
       <label for="direct">
         <b>People</b>
       </label>
@@ -339,9 +646,13 @@ export default function MintRealEstate() {
         min={1}
         onChange={(e) => {
           setPeople(e.target.value);
+          validatePeople
         }}
+        onBlur={validatePeople}
         required
       />
+      {peopleErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{peopleErr}</div>}
+
       <hr></hr>
       <button
         type="submit"
@@ -350,6 +661,7 @@ export default function MintRealEstate() {
       >
         Mint
       </button>
+
     </div>
   );
 }
