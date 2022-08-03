@@ -6,7 +6,7 @@ import axios from "axios";
 import QTMarket from "../../artifacts/contracts/QTMarket.sol/QTMarket.json";
 import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import { nftaddress, nftmarketaddress } from "../../config";
-import validator from 'validator';
+import validator from "validator";
 
 export default function MintRealEstate() {
   const router = useRouter();
@@ -71,7 +71,7 @@ export default function MintRealEstate() {
     }
     setTitleErr("");
     setTitleValid(true);
-  }
+  };
   const validateBuilding = () => {
     if (building.length < 1) {
       setBuildingErr("Building require!");
@@ -85,7 +85,7 @@ export default function MintRealEstate() {
     }
     setBuildingErr("");
     setBuildingValid(true);
-  }
+  };
   const validateFloor = () => {
     if (floor.length < 1) {
       setFloorErr("Floor require!");
@@ -104,7 +104,7 @@ export default function MintRealEstate() {
     }
     setFloorErr("");
     setFloorValid(true);
-  }
+  };
   const validatePrice = () => {
     if (price.length < 1) {
       setPriceErr("Price require!");
@@ -123,7 +123,7 @@ export default function MintRealEstate() {
     }
     setPriceErr("");
     setPriceValid(true);
-  }
+  };
   const validateRoomCode = () => {
     if (roomCode.length < 1) {
       setRoomCodeErr("RoomCode require!");
@@ -137,7 +137,7 @@ export default function MintRealEstate() {
     }
     setRoomCodeErr("");
     setRoomCodeValid(true);
-  }
+  };
   const validateLocation = () => {
     if (location.length < 1) {
       setLocationErr("Location require!");
@@ -151,7 +151,7 @@ export default function MintRealEstate() {
     }
     setLocationErr("");
     setLocationValid(true);
-  }
+  };
   const validateAdd = () => {
     if (address.length < 1) {
       setAddErr("Address require!");
@@ -165,7 +165,7 @@ export default function MintRealEstate() {
     }
     setAddErr("");
     setAddValid(true);
-  }
+  };
 
   const validateImg = () => {
     if (img.length < 1) {
@@ -178,9 +178,9 @@ export default function MintRealEstate() {
       setImgValid(false);
       return;
     }
-    setImgErr('');
+    setImgErr("");
     setImgValid(true);
-  }
+  };
   const validateArea = () => {
     if (area.length < 1) {
       setAreaErr("Area require!");
@@ -199,7 +199,7 @@ export default function MintRealEstate() {
     }
     setAreaErr("");
     setAreaValid(true);
-  }
+  };
   const validateToilet = () => {
     if (toilet.length < 1) {
       setToiletErr("Toilet require!");
@@ -218,7 +218,7 @@ export default function MintRealEstate() {
     }
     setToiletErr("");
     setToiletValid(true);
-  }
+  };
   const validateBedRoom = () => {
     if (bedRoom.length < 1) {
       setBedRoomErr("BedRoom require!");
@@ -237,7 +237,7 @@ export default function MintRealEstate() {
     }
     setBedRoomErr("");
     setBedRoomValid(true);
-  }
+  };
   const validateDirect = () => {
     if (direct.length < 1) {
       setDirectErr("Direct require!");
@@ -251,7 +251,7 @@ export default function MintRealEstate() {
     }
     setDirectErr("");
     setDirectValid(true);
-  }
+  };
   const validateDetail = () => {
     if (detail.length < 1) {
       setDetailErr("Detail require!");
@@ -265,7 +265,7 @@ export default function MintRealEstate() {
     }
     setDetailErr("");
     setDetailValid(true);
-  }
+  };
   const validatePeople = () => {
     if (people.length < 1) {
       setPeopleErr("People require!");
@@ -284,7 +284,7 @@ export default function MintRealEstate() {
     }
     setPeopleErr("");
     setPeopleValid(true);
-  }
+  };
   async function connect() {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -423,12 +423,19 @@ export default function MintRealEstate() {
         id="email"
         onChange={(e) => {
           setTitle(e.target.value);
-          validateTitle
+          validateTitle;
         }}
         onBlur={validateTitle}
         required
       />
-      {titleErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{titleErr}</div>}
+      {titleErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{titleErr}
+        </div>
+      )}
 
       <label for="building">
         <b>Building</b>
@@ -440,12 +447,19 @@ export default function MintRealEstate() {
         id="building"
         onChange={(e) => {
           setBuilding(e.target.value);
-          validateBuilding
+          validateBuilding;
         }}
         onBlur={validateBuilding}
         required
       />
-      {buildingErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{buildingErr}</div>}
+      {buildingErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{buildingErr}
+        </div>
+      )}
 
       <label for="floor">
         <b>Floor</b>
@@ -457,12 +471,19 @@ export default function MintRealEstate() {
         id="floor"
         onChange={(e) => {
           setFloor(e.target.value);
-          validateFloor
+          validateFloor;
         }}
         onBlur={validateFloor}
         required
       />
-      {floorErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{floorErr}</div>}
+      {floorErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{floorErr}
+        </div>
+      )}
 
       <label for="price">
         <b>Price</b>
@@ -474,12 +495,19 @@ export default function MintRealEstate() {
         id="price"
         onChange={(e) => {
           setPrice(e.target.value);
-          validatePrice
+          validatePrice;
         }}
         onBlur={validatePrice}
         required
       />
-      {priceErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{priceErr}</div>}
+      {priceErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{priceErr}
+        </div>
+      )}
 
       <label for="roomCode">
         <b>Room Code</b>
@@ -491,12 +519,19 @@ export default function MintRealEstate() {
         id="roomCode"
         onChange={(e) => {
           setRoomCode(e.target.value);
-          validateRoomCode
+          validateRoomCode;
         }}
         onBlur={validateRoomCode}
         required
       />
-      {roomCodeErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{roomCodeErr}</div>}
+      {roomCodeErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{roomCodeErr}
+        </div>
+      )}
 
       <label for="location">
         <b>Location</b>
@@ -508,12 +543,19 @@ export default function MintRealEstate() {
         id="location"
         onChange={(e) => {
           setLocation(e.target.value);
-          validateLocation
+          validateLocation;
         }}
         onBlur={validateLocation}
         required
       />
-      {locationErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{locationErr}</div>}
+      {locationErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{locationErr}
+        </div>
+      )}
 
       <label for="address">
         <b>Address</b>
@@ -525,12 +567,19 @@ export default function MintRealEstate() {
         id="address"
         onChange={(e) => {
           setAddress(e.target.value);
-          validateAdd
+          validateAdd;
         }}
         onBlur={validateAdd}
         required
       />
-      {addErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{addErr}</div>}
+      {addErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{addErr}
+        </div>
+      )}
 
       <label for="imgUrl">
         <b>Image URL</b>
@@ -542,12 +591,19 @@ export default function MintRealEstate() {
         id="imgURL"
         onChange={(e) => {
           setImg(e.target.value);
-          validateImg
+          validateImg;
         }}
         onBlur={validateImg}
         required
       />
-      {imgErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{imgErr}</div>}
+      {imgErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{imgErr}
+        </div>
+      )}
 
       <label for="area">
         <b>Area</b>
@@ -559,12 +615,19 @@ export default function MintRealEstate() {
         id="area"
         onChange={(e) => {
           setArea(e.target.value);
-          validateArea
+          validateArea;
         }}
         onBlur={validateArea}
         required
       />
-      {areaErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{areaErr}</div>}
+      {areaErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{areaErr}
+        </div>
+      )}
 
       <label for="toilet">
         <b>Toilet</b>
@@ -576,12 +639,19 @@ export default function MintRealEstate() {
         id="toilet"
         onChange={(e) => {
           setToiet(e.target.value);
-          validateToilet
+          validateToilet;
         }}
         onBlur={validateToilet}
         required
       />
-      {toiletErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{toiletErr}</div>}
+      {toiletErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{toiletErr}
+        </div>
+      )}
 
       <label for="bedroom">
         <b>Bedroom</b>
@@ -593,12 +663,19 @@ export default function MintRealEstate() {
         id="bedroom"
         onChange={(e) => {
           setBedroom(e.target.value);
-          validateBedRoom
+          validateBedRoom;
         }}
         onBlur={validateBedRoom}
         required
       />
-      {bedRoomErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{bedRoomErr}</div>}
+      {bedRoomErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{bedRoomErr}
+        </div>
+      )}
 
       <label for="direct">
         <b>Direct</b>
@@ -610,12 +687,19 @@ export default function MintRealEstate() {
         id="direct"
         onChange={(e) => {
           setDirect(e.target.value);
-          validateDirect
+          validateDirect;
         }}
         onBlur={validateDirect}
         required
       />
-      {directErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{directErr}</div>}
+      {directErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{directErr}
+        </div>
+      )}
 
       <label for="detail">
         <b>Detail</b>
@@ -625,7 +709,7 @@ export default function MintRealEstate() {
         id="detail"
         onChange={(e) => {
           setDetail(e.target.value);
-          validateDetail
+          validateDetail;
         }}
         onBlur={validateDetail}
         cols="30"
@@ -634,7 +718,14 @@ export default function MintRealEstate() {
         placeholder="   Enter Detail"
         required
       ></textarea>
-      {detailErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{detailErr}</div>}
+      {detailErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{detailErr}
+        </div>
+      )}
       <label for="direct">
         <b>People</b>
       </label>
@@ -646,12 +737,19 @@ export default function MintRealEstate() {
         min={1}
         onChange={(e) => {
           setPeople(e.target.value);
-          validatePeople
+          validatePeople;
         }}
         onBlur={validatePeople}
         required
       />
-      {peopleErr && <div className="validation text-red-700 -mt-3" style={{ display: 'block' }}>*{peopleErr}</div>}
+      {peopleErr && (
+        <div
+          className="validation text-red-700 -mt-3"
+          style={{ display: "block" }}
+        >
+          *{peopleErr}
+        </div>
+      )}
 
       <hr></hr>
       <button
@@ -661,7 +759,6 @@ export default function MintRealEstate() {
       >
         Mint
       </button>
-
     </div>
   );
 }

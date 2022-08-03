@@ -74,7 +74,7 @@ export default function Product() {
     date[0].endDate.getTime() - date[0].startDate.getTime()
   );
   const noofdays = Math.ceil(diff / (1000 * 3600 * 24));
-  let days = BigNumber.from(noofdays);
+  // let days = BigNumber.from(noofdays);
 
   const data = pdList.map((x) => {
     return {
@@ -100,13 +100,17 @@ export default function Product() {
       QTMarket.abi,
       signer
     );
-    let a = BigNumber.from(nft.Price * days);
-    const pricePerDay = ethers.utils.parseUnits(a.toString(), "ether");
+    // let a = BigNumber.from(nft.Price * days);
+    // const pricePerDay = ethers.utils.parseUnits(a.toString(), "ether");
+    const price = ethers.utils.parseUnits(nft.Price.toString(), "ether");
+
+    console.log(typeof price);
+
     const transaction = await contract.addDatesBooked(
       nftaddress,
       nft.RealEstateId,
       [],
-      { value: pricePerDay }
+      { value: price * noofdays }
     );
     console.log(transaction);
     await transaction.wait();
@@ -496,7 +500,7 @@ export default function Product() {
                 <div className="flex py-2 justify-between">
                   <label className="font-medium text-2xl">Total</label>
                   <span className="font-medium text-2xl">
-                    {each.Price * days} ETH
+                    {each.Price * noofdays} ETH
                   </span>
                 </div>
                 <button
