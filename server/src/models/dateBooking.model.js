@@ -28,7 +28,7 @@ BookingTable.getAllBooking = (result) => {
 // get realestate by ID from BD
 BookingTable.getBookingTableByETH = (id, result) => {
   dbConn.query(
-    "SELECT * FROM quangthinhbds.bookingtable where ethAddress = ? order by Checkint DESC",
+    "SELECT * FROM quangthinhbds.bookingtable where ethAddress = ? order by BookingID DESC",
     id,
     (err, res) => {
       if (err) {

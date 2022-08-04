@@ -469,7 +469,7 @@ export default function Product() {
                       editableDateInputs={true}
                       onChange={(item) => setDate([item.selection])}
                       ranges={date}
-                      className="absolute ml-5 -bottom-2/3 z-50"
+                      className="absolute ml-5 -bottom-3/4 z-50"
                       minDate={new Date()}
                     />
                   )}
