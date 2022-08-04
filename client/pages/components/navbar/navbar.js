@@ -129,7 +129,10 @@ export default function Navbar() {
     setLogin(true);
   }
   async function connect() {
-    const web3Modal = new Web3Modal();
+    const web3Modal = new Web3Modal({
+      cacheProvider: true,
+      disableInjectedProvider: false,
+    });
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = await provider.getSigner();

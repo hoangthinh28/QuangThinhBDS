@@ -102,19 +102,20 @@ export default function Product() {
     );
     // let a = BigNumber.from(nft.Price * days);
     // const pricePerDay = ethers.utils.parseUnits(a.toString(), "ether");
-    const price = ethers.utils.parseUnits(nft.Price.toString(), "ether");
 
-    console.log(typeof price);
+    let a = nft.Price * noofdays;
+    // let pricePerDay = utils.parseEther(a.toString());
+    const price = ethers.utils.parseEther(a.toString());
 
     const transaction = await contract.addDatesBooked(
       nftaddress,
       nft.RealEstateId,
       [],
-      { value: price * noofdays }
+      { value: price }
     );
     console.log(transaction);
     await transaction.wait();
-    await createData(nft);
+    createData(nft);
     router.push("/profile");
   }
 

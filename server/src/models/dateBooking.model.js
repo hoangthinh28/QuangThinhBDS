@@ -51,7 +51,7 @@ BookingTable.createBookingTable = (realEstateReqData, result) => {
     realEstateReqData,
     (err, res) => {
       if (err) {
-        console.log("Error while inserting booking data");
+        console.log(err);
         result(null, err);
       } else {
         console.log("BookingTable data created successfully");
