@@ -27,8 +27,6 @@ export default function RealEstate() {
       });
   }
 
-
-
   const searchData = (value) => {
     setSearchTerm(value);
     if (searchTerm !== "") {

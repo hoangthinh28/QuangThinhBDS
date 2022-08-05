@@ -473,7 +473,9 @@ export default function Product() {
                       minDate={new Date()}
                     />
                   )}
-
+                  <p className="text-red-600 font-medium text-sm text-left mt-3">
+                    *Please check available days below for a reservation!
+                  </p>
                   <DayPicker
                     disabled={getDateBooked}
                     mode="range"
