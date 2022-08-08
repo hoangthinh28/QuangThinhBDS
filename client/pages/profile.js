@@ -14,7 +14,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { set } from "date-fns";
-import validator from 'validator';
+import validator from "validator";
+import Link from "next/link";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function Profile() {
   const [userList, setUserList] = useState([]);
@@ -48,9 +52,9 @@ export default function Profile() {
       setImageValid(false);
       return;
     }
-    setImageErr('');
+    setImageErr("");
     setImageValid(true);
-  }
+  };
   const validateUser = () => {
     if (user.length < 1) {
       setUserErr("Username require!");
@@ -64,7 +68,7 @@ export default function Profile() {
     }
     setUserErr("");
     setUserValid(true);
-  }
+  };
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
   const checkEmail = () => {
     if (email.length < 1) {
@@ -79,7 +83,7 @@ export default function Profile() {
     }
     setEmailErr("");
     setEmailValid(true);
-  }
+  };
 
   let dataUpdate = {
     Username: user,
@@ -178,12 +182,25 @@ export default function Profile() {
                 <br></br>
                 <br></br>
 
-                <button
-                  class="w-44 h-12 rounded-full bg-cyan-500 btn-dark text-center text-white hover:bg-cyan-800"
-                  onClick={handleShow}
-                >
-                  Edit Profile
-                </button>
+                <div className="flex gap-4 justify-center items-center">
+                  <button
+                    class="w-44 h-12 rounded-full bg-cyan-500 btn-dark text-center text-white hover:bg-cyan-800"
+                    onClick={handleShow}
+                  >
+                    Edit Profile
+                  </button>
+                  {each.isAdmin === 1 && (
+                    <Link href="/admin">
+                      <a>
+                        <FontAwesomeIcon
+                          icon={faArrowUpRightFromSquare}
+                          className="text-gray mr-2 text-2xl hover:text-cyan-500"
+                        />
+                      </a>
+                    </Link>
+                  )}
+                </div>
+
                 <>
                   <Modal
                     className="flex justify-center text-center w-full h-full"
@@ -225,7 +242,7 @@ export default function Profile() {
                                 Update Profile
                               </h3>
                               <hr className="w-full"></hr>
-                              <Form >
+                              <Form>
                                 <div>
                                   <label
                                     for="username"
@@ -241,13 +258,19 @@ export default function Profile() {
                                     placeholder="Enter username"
                                     onChange={(e) => {
                                       setUser(e.target.value);
-                                      validateUser
+                                      validateUser;
                                     }}
                                     onBlur={validateUser}
                                     required
                                   />
-                                  {userErr && <div className="validation text-red-700 text-base -mt-0" style={{ display: 'block' }}>*{userErr}</div>}
-
+                                  {userErr && (
+                                    <div
+                                      className="validation text-red-700 text-base -mt-0"
+                                      style={{ display: "block" }}
+                                    >
+                                      *{userErr}
+                                    </div>
+                                  )}
                                 </div>
                                 <div>
                                   <label
@@ -264,12 +287,19 @@ export default function Profile() {
                                     placeholder="Enter email"
                                     onChange={(e) => {
                                       setEmail(e.target.value);
-                                      checkEmail
+                                      checkEmail;
                                     }}
                                     onBlur={checkEmail}
                                     required
                                   />
-                                  {emailErr && <div className="validation text-red-700 text-base -mt-0" style={{ display: 'block' }}>*{emailErr}</div>}
+                                  {emailErr && (
+                                    <div
+                                      className="validation text-red-700 text-base -mt-0"
+                                      style={{ display: "block" }}
+                                    >
+                                      *{emailErr}
+                                    </div>
+                                  )}
                                 </div>
                                 <div>
                                   <label
@@ -286,13 +316,19 @@ export default function Profile() {
                                     placeholder="Enter image"
                                     onChange={(e) => {
                                       setImage(e.target.value);
-                                      validateImage
+                                      validateImage;
                                     }}
                                     onBlur={validateImage}
                                     required
                                   />
-                                  {imageErr && <div className="validation text-red-700 text-base -mt-0" style={{ display: 'block' }}>*{imageErr}</div>}
-
+                                  {imageErr && (
+                                    <div
+                                      className="validation text-red-700 text-base -mt-0"
+                                      style={{ display: "block" }}
+                                    >
+                                      *{imageErr}
+                                    </div>
+                                  )}
                                 </div>
                                 <hr className="p-5"></hr>
                                 <button
@@ -300,7 +336,7 @@ export default function Profile() {
                                   onClick={updateDateUser}
                                   type="submit"
                                   colorScheme="purple"
-                                // onClick={submit}
+                                  // onClick={submit}
                                 >
                                   {" "}
                                   Change
