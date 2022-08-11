@@ -28,8 +28,8 @@ export default function User() {
   return (
     <div>
       <Sidebar />
-      <div class="float-right w-4/5  -mt-96 mr-6 ">
-        <div class>
+      <div class="float-right w-4/5 -mt-96 mr-6 ">
+        <div class="mt-14">
           <div class="overflow-x-auto bg-white border-2 border-black -mt-52">
             <table class=" w-full  bg-white border-2 border-black ">
               <thead>

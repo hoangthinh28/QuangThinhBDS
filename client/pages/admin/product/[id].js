@@ -56,7 +56,7 @@ export default function Detail() {
       <Sidebar />
       {pbList.map((each) => {
         return (
-          <div className="float-right w-4/5 pl-20 -mt-96 ">
+          <div className="float-right w-4/5 pl-20 -mt-80 ">
             <div className="ml-1 -mt-52 ">
               <Link href="/">
                 <a>

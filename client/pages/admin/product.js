@@ -25,11 +25,12 @@ export default function Product() {
 
   return (
     <div>
-      <Sidebar />
-      <div class="flex justify-center ml-64 -mt-96 mb-28 h-full">
-        <div class="float-right w-4/5 -mt-28 -mb-2">
-          <div class="overflow-x-auto -mt-28 w-full ">
-            <table class=" w-full ">
+      <Sidebar class="" />
+
+      <div class="flex justify-center ml-64 -mt-80 mb-28">
+        <div class=" -mb-5">
+          <div class="overflow-x-auto  w-full ">
+            <table class="  w-full ">
               <thead>
                 <tr>
                   <th class="border-2 border-black ">ID</th>
