@@ -190,14 +190,12 @@ export default function Profile() {
                     Edit Profile
                   </button>
                   {each.isAdmin === 1 && (
-                    <Link href="/admin">
-                      <a>
-                        <FontAwesomeIcon
-                          icon={faArrowUpRightFromSquare}
-                          className="text-gray mr-2 text-2xl hover:text-cyan-500"
-                        />
-                      </a>
-                    </Link>
+                    <a href="/admin" target="_blank">
+                      <FontAwesomeIcon
+                        icon={faArrowUpRightFromSquare}
+                        className="text-gray mr-2 text-2xl hover:text-cyan-500"
+                      />
+                    </a>
                   )}
                 </div>
 
