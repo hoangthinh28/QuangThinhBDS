@@ -82,55 +82,24 @@ BookingTable.getDate = (Title, result) => {
   );
 };
 
-// // update real estate
-// BookingTable.updateBookingTable = (BookingID, realEstateReqData, result) => {
-//   dbConn.query(
-//     "UPDATE BookingTable SET RealEstateTitle=?,RoomCode=?, Address=?, imgURL=?, Address=?, Direct=?, Floor=?, imgURL=?, Area=?, Toilet=?, People=?, Detail=?, Building=?, CreateAt=?, datesBooked=?  ,UserId=? WHERE BookingID= ?",
-//     [
-//       realEstateReqData.RealEstateTitle,
-//       realEstateReqData.RoomCode,
-//       realEstateReqData.Address,
-//       realEstateReqData.Location,
-//       realEstateReqData.Address,
-//       realEstateReqData.Direct,
-//       realEstateReqData.Floor,
-//       realEstateReqData.imgURL,
-//       realEstateReqData.Area,
-//       realEstateReqData.Toilet,
-//       realEstateReqData.People,
-//       realEstateReqData.Detail,
-//       realEstateReqData.Building,
-//       realEstateReqData.CreateAt,
-//       realEstateReqData.datesBooked,
-//       realEstateReqData.UserId,
-//       BookingID,
-//     ],
-//     (err, res) => {
-//       if (err) {
-//         console.log("Errorr while updating the user");
-//         result(null, err);
-//       } else {
-//         console.log("RealEstate updated successfully");
-//         result(null, res);
-//       }
-//     }
-//   );
-// };
+BookingTable.getRealEstateId = (RealEstateId, result) => {
+  dbConn.query(
+    "SELECT * FROM quangthinhbds.bookingtable where RealEstateId =?",
 
-//delete user
-// RealEstate.deleteRealEstate = (id, result) => {
-//   dbConn.query(
-//     "DELETE FROM realestate WHERE RealEstateId=?",
-//     [id],
-//     (err, res) => {
-//       if (err) {
-//         console.log("Error while deleting the realestate");
-//         result(null, err);
-//       } else {
-//         result(null, res);
-//       }
-//     }
-//   );
-// };
+    RealEstateId,
+
+    (err, res) => {
+      if (err) {
+        console.log("Error while fetching Booking by Title", err);
+
+        result(null, err);
+      } else {
+        console.log("BookingTable data fetch successfully");
+
+        result(null, res);
+      }
+    }
+  );
+};
 
 module.exports = BookingTable;

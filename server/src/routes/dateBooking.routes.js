@@ -10,6 +10,11 @@ router.get("/date/:id", dateBookingController.getDateBookingByID);
 
 router.get("/date/booking/:id", dateBookingController.getDateBookingByTitle);
 
+router.get(
+  "/date/bookingre/:id",
+  dateBookingController.getDateBookingByRealEstateId
+);
+
 // // create new realestate
 router.post("/", dateBookingController.createNewDateBooking);
 
