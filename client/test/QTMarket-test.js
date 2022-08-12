@@ -49,11 +49,23 @@ describe("QTMarket", function () {
         value: auctionPrice,
       });
 
-    await market
+    let a2 = await market
       .connect(buyerAddress)
       .addDatesBooked(nftContractAddress, 2, ["29/02/2022"], {
         value: auctionPrice,
       });
+    console.log(a2);
+
+    let balance = await market.getBalance();
+    // const priceWidthraw = ethers.utils.parseUnits(balance.toString(), "ether");
+
+    // let widthraw = await market.withdrawMoneyTo(nftContractAddress, {
+    //   value: priceWidthraw,
+    // });
+
+    // console.log(widthraw);
+
+    // console.log(balance);
 
     let items = await market.fetchMarketTokens();
 

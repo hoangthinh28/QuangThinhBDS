@@ -52,6 +52,10 @@ contract QTMarket is ReentrancyGuard {
         address renter
     );
 
+    event withdrawMoney(
+        address indexed nftContract
+    );
+
     // get the listing price
     function getListingPrice() public view returns (uint256) {
         return listingPrice;
@@ -153,5 +157,19 @@ contract QTMarket is ReentrancyGuard {
             }
         } 
         return items; 
+    }
+
+    function sendTransfer(address payable _to) public payable {
+       payable(_to).transfer(msg.value * 70 / 100);
+    }
+
+    
+    function getBalance() public view returns(uint) {
+        return address(this).balance;
+    }
+
+    function withdrawMoneyTo(address nftContract) public payable {
+        payable(owner).transfer(getBalance());
+        emit withdrawMoney(nftContract);
     }
 }

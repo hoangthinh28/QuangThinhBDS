@@ -12,7 +12,7 @@ const BNB_PRIVATE_KEY =
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  defaultNetwork: "testnet",
+  defaultNetwork: "hardhat",
   solidity: {
     version: "0.8.9",
     settings: {

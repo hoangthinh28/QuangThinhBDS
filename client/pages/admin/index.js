@@ -7,8 +7,9 @@ export default function Admin() {
         <Sidebar />
       </div>
       <div className="float-right w-4/5">
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-col pr-6">
           <div className="flex justify-center gap-5">
+            <Widget type="balance" />
             <Widget type="user" />
             <Widget type="real" />
             <Widget type="earning" />

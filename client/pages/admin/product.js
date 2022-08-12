@@ -3,7 +3,10 @@ import Axios from "axios";
 import Sidebar from "./Sidebar";
 import Link from "next/link";
 
+
 export default function Product() {
+  const router = useRouter();
+
   const [reList, setReList] = useState([]);
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function Product() {
 
       <div class="flex justify-center ml-64 -mt-80 mb-28">
         <div class=" -mb-5">
-          <div class="overflow-x-auto  w-full ">
+          <div class="overflow-x-auto w-full ">
             <table class="  w-full ">
               <thead>
                 <tr>
