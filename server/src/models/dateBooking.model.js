@@ -28,7 +28,7 @@ BookingTable.getAllBooking = (result) => {
 // get realestate by ID from BD
 BookingTable.getBookingTableByETH = (id, result) => {
   dbConn.query(
-    "SELECT * FROM quangthinhbds.bookingtable where ethAddress = ? order by BookingID DESC",
+    "SELECT * FROM bookingtable where ethAddress = ? order by BookingID DESC",
     id,
     (err, res) => {
       if (err) {
@@ -84,7 +84,7 @@ BookingTable.getDate = (Title, result) => {
 
 BookingTable.getRealEstateId = (RealEstateId, result) => {
   dbConn.query(
-    "SELECT * FROM quangthinhbds.bookingtable where RealEstateId =?",
+    "SELECT * FROM bookingtable where RealEstateId =?",
 
     RealEstateId,
 

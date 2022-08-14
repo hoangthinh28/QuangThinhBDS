@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Sidebar from "./Sidebar";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 
 export default function Product() {
   const router = useRouter();
@@ -27,13 +27,12 @@ export default function Product() {
   }
 
   return (
-    <div>
+    <div className="flex">
       <Sidebar class="" />
-
-      <div class="flex justify-center ml-64 -mt-80 mb-28">
-        <div class=" -mb-5">
+      <div class="w-4/5 flex justify-center items-center">
+        <div class="-mb-5">
           <div class="overflow-x-auto w-full ">
-            <table class="  w-full ">
+            <table class="w-full ">
               <thead>
                 <tr>
                   <th class="border-2 border-black ">ID</th>
@@ -45,10 +44,10 @@ export default function Product() {
               {reList.map((each) => (
                 <tbody>
                   <tr key={each.RealEstateId}>
-                    <td class="border-2 border-black text-center">
+                    <td class="border-2 border-black text-center px-4">
                       {each.RealEstateId}
                     </td>
-                    <td class="border-2 border-black hover:bg-cyan-500">
+                    <td class="border-2 border-black hover:bg-cyan-500 px-4">
                       <Link
                         href="/admin/product/[id]"
                         as={`/admin/product/${each.RealEstateId}`}
@@ -58,8 +57,8 @@ export default function Product() {
                         </a>
                       </Link>
                     </td>
-                    <td class="border-2 border-black">{each.Price}</td>
-                    <td class="border-2 border-black pr-4">
+                    <td class="border-2 border-black px-4">{each.Price}</td>
+                    <td class="border-2 border-black px-4">
                       {each.ethAddress}
                     </td>
                   </tr>

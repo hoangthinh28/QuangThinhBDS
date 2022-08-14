@@ -26,12 +26,12 @@ export default function User() {
   let ID = 1;
 
   return (
-    <div>
+    <div className="flex w-full">
       <Sidebar />
-      <div class="float-right w-4/5 -mt-96 mr-6 ">
+      <div class="flex justify-center w-4/5 items-center pt-40">
         <div class="mt-14">
           <div class="overflow-x-auto bg-white border-2 border-black -mt-52">
-            <table class=" w-full  bg-white border-2 border-black ">
+            <table class=" w-full bg-white border-2 border-black ">
               <thead>
                 <tr>
                   <th class="border-2 border-black">ID</th>
@@ -41,8 +41,10 @@ export default function User() {
               {userList.map((each) => (
                 <tbody>
                   <tr>
-                    <td class="pl-8 border-2 border-black">{ID++}</td>
-                    <td class="pl-80 border-2 border-black">
+                    <td class="border-2 border-black px-4 text-center">
+                      {ID++}
+                    </td>
+                    <td class="border-2 border-black px-10">
                       {each.ethAddress}
                     </td>
                   </tr>

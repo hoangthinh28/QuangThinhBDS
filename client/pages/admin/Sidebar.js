@@ -7,7 +7,7 @@ import StoreIcon from "@mui/icons-material/Store";
 export default function Sidebar() {
   const router = useRouter();
   return (
-    <div className="flex-auto bg-neutral-900 w-56">
+    <div className="bg-neutral-900 w-56">
       <div className="h-14 flex items-center justify-center">
         <a href="" style={{ textDecoration: "none" }}>
           <span className="text-xl bold font-bold text-white">Admin</span>
