@@ -100,7 +100,7 @@ export default function Home() {
           })}
         </div>
       </div>
-      <div class="pt-10 bg-gray-100">
+      <div className="pt-10 bg-gray-100">
         <Slider list={pdList} />
       </div>
       <div className="mt-6 ">
@@ -128,13 +128,13 @@ export default function Home() {
           })}
         </div>
       </div>
-      <div class="pb-16 bg-slate-50 w-full">
+      <div className="pb-16 bg-slate-50 w-full">
         <End />
       </div>
-      <section class=" bg-gray-100 pt-10 ">
-        <div class="flex justify-center max-width w-full pr-4 pl-4 mr-auto ml-auto">
-          <div class="flex flex-wrap -mr-4 -ml-4">
-            <div class="col-lg-12 text-center">
+      <section className=" bg-gray-100 pt-10 ">
+        <div className="flex justify-center max-width w-full pr-4 pl-4 mr-auto ml-auto">
+          <div className="flex flex-wrap -mr-4 -ml-4">
+            <div className="col-lg-12 text-center">
               <h2 className="font-serif font-semibold text-black text-4xl flex flex-wrap -mr-4 -ml-4 ">
                 Don’t forget to follow us
               </h2>
@@ -142,9 +142,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div class="w-full">
-        <div class="flex justify-center w-full pr-4 pl-4 mr-auto ml-auto pb-10 bg-gray-100">
-          <div class="flex justify-center flex-wrap w-full -mr-4 -ml-4 ">
+      <div className="w-full">
+        <div className="flex justify-center w-full pr-4 pl-4 mr-auto ml-auto pb-10 bg-gray-100">
+          <div className="flex justify-center flex-wrap w-full -mr-4 -ml-4 ">
             <img
               className="h-72 w-64 vertical-align border-none"
               src="https://preview.colorlib.com/theme/homes/img/room-pic/x1.jpg.pagespeed.ic.8GLbaMIWgs.webp"

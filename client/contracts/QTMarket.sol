@@ -52,6 +52,8 @@ contract QTMarket is ReentrancyGuard {
         address renter
     );
 
+    event sendTransferTo(address owner);
+
     event withdrawMoney(
         address indexed nftContract
     );
@@ -161,9 +163,9 @@ contract QTMarket is ReentrancyGuard {
 
     function sendTransfer(address payable _to) public payable {
        payable(_to).transfer(msg.value * 70 / 100);
+       emit sendTransferTo(_to);
     }
 
-    
     function getBalance() public view returns(uint) {
         return address(this).balance;
     }

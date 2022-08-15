@@ -156,27 +156,27 @@ export default function Profile() {
     <div>
       {userList.map((each) => {
         return (
-          <div class="min-h-full d-flex justify-content-center align-items-center ">
-            <div class="w-full border-none rounded-2xl p-2 relative bg-white h-full">
-              <div class="h-24">
+          <div className="min-h-full d-flex justify-content-center align-items-center ">
+            <div className="w-full border-none rounded-2xl p-2 relative bg-white h-full">
+              <div className="h-24">
                 <img
                   src="https://png.pngtree.com/thumb_back/fh260/background/20190220/ourmid/pngtree-business-technology-dark-blue-background-point-line-image_7559.jpg"
-                  class="img-fluid  h-52 w-full rounded-t-xl"
+                  className="img-fluid  h-52 w-full rounded-t-xl"
                 />
               </div>
-              <div class=" flex justify-center relative text-center">
-                <div class="flex justify-center border-3 border-solid  bg-white top-8 h-48 w-48 rounded-full">
+              <div className=" flex justify-center relative text-center">
+                <div className="flex justify-center border-3 border-solid  bg-white top-8 h-48 w-48 rounded-full">
                   <img
                     src={each.Avatar}
-                    class="rounded-circle h-48 w-48 mt-0.5 rounded-full"
+                    className="rounded-circle h-48 w-48 mt-0.5 rounded-full"
                     width="80"
                   />
                 </div>
               </div>
-              <div class=" text-center ">
-                <h2 class="pt-3 text-4xl text-black">{each.Username}</h2>
+              <div className=" text-center ">
+                <h2 className="pt-3 text-4xl text-black">{each.Username}</h2>
 
-                <span class="pt-2 text-2xl  text-black text-muted d-block mb-2">
+                <span className="pt-2 text-2xl  text-black text-muted d-block mb-2">
                   {each.ethAddress}
                 </span>
                 <br></br>
@@ -184,7 +184,7 @@ export default function Profile() {
 
                 <div className="flex gap-4 justify-center items-center">
                   <button
-                    class="w-44 h-12 rounded-full bg-cyan-500 btn-dark text-center text-white hover:bg-cyan-800"
+                    className="w-44 h-12 rounded-full bg-cyan-500 btn-dark text-center text-white hover:bg-cyan-800"
                     onClick={handleShow}
                   >
                     Edit Profile
@@ -210,19 +210,19 @@ export default function Profile() {
                         id="authentication-modal"
                         tabindex="-1"
                         aria-hidden="true"
-                        class="overflow-y-auto fixed pt-36 ml-20 pl-96 w-full md:inset-0 h-modal md:h-full "
+                        className="overflow-y-auto fixed pt-36 ml-20 pl-96 w-full md:inset-0 h-modal md:h-full "
                       >
-                        <div class="relative p-px w-full max-w-md h-full md:h-auto  bg-black">
-                          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div className="relative p-px w-full max-w-md h-full md:h-auto  bg-black">
+                          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <button
                               type="button"
-                              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                               data-modal-toggle="authentication-modal"
                               onClick={handleClose}
                             >
                               <svg
                                 aria-hidden="true"
-                                class="w-5 h-5"
+                                className="w-5 h-5"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -233,10 +233,10 @@ export default function Profile() {
                                   clip-rule="evenodd"
                                 ></path>
                               </svg>
-                              <span class="sr-only">Close modal</span>
+                              <span className="sr-only">Close modal</span>
                             </button>
-                            <div class="py-6 px-6 lg:px-8">
-                              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                            <div className="py-6 px-6 lg:px-8">
+                              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                                 Update Profile
                               </h3>
                               <hr className="w-full"></hr>
@@ -244,7 +244,7 @@ export default function Profile() {
                                 <div>
                                   <label
                                     for="username"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                   >
                                     Set a new username
                                   </label>
@@ -252,7 +252,7 @@ export default function Profile() {
                                     type="text"
                                     name="username"
                                     id="username"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="Enter username"
                                     onChange={(e) => {
                                       setUser(e.target.value);
@@ -273,7 +273,7 @@ export default function Profile() {
                                 <div>
                                   <label
                                     for="email"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                   >
                                     Set a new email
                                   </label>
@@ -281,7 +281,7 @@ export default function Profile() {
                                     type="email"
                                     name="email"
                                     id="email"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="Enter email"
                                     onChange={(e) => {
                                       setEmail(e.target.value);
@@ -302,7 +302,7 @@ export default function Profile() {
                                 <div>
                                   <label
                                     for="username"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                   >
                                     Set a Avatar
                                   </label>
@@ -310,7 +310,7 @@ export default function Profile() {
                                     type="text"
                                     name="image"
                                     id="image"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="Enter image"
                                     onChange={(e) => {
                                       setImage(e.target.value);

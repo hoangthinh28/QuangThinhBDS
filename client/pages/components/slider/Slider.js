@@ -15,15 +15,15 @@ export default function Slider(props) {
   console.log(props.list);
   return (
     <div className="max-width w-full pr-2 pl-4 mr-auto ml-auto -mt-5">
-      <div class="flex flex-wrap justify-center items-center mb-3 ">
-        <div class="col-6">
-          <h2 class="text-4xl text-center font-serif font-semibold text-black">
+      <div className="flex flex-wrap justify-center items-center mb-3 ">
+        <div className="col-6">
+          <h2 className="text-4xl text-center font-serif font-semibold text-black">
             Properties
           </h2>
         </div>
       </div>
       <div className="block w-full h-full z-10 relative ">
-        <div class="relative overflow-hidden -mt-20">
+        <div className="relative overflow-hidden -mt-20">
           <Carousel cols={3} rows={1} gap={10} loop>
             {props.list.map((each, index) => {
               return (

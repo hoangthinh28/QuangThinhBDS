@@ -62,3 +62,13 @@ exports.getDateBookingByRealEstateId = (req, res) => {
     res.send(realEstate);
   });
 };
+
+exports.updateIsPaymented = (req, res) => {
+  dateBookingModel.updateIsPaymented(req.params.id, (err, realEstate) => {
+    if (err) res.send(err);
+    res.json({
+      status: true,
+      message: "RealEstate updated isPaymented Successfully",
+    });
+  });
+};

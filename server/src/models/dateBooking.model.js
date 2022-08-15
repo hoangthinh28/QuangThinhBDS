@@ -57,7 +57,7 @@ BookingTable.createBookingTable = (realEstateReqData, result) => {
         console.log("BookingTable data created successfully");
         dbConn.query(
           "UPDATE realestate SET countBooked=countBooked + 1 WHERE RealEstateId= ?",
-          [realEstateReqData.RealEstateId]
+          [realEstateReqData.a]
         );
         result(null, res);
       }
@@ -84,18 +84,34 @@ BookingTable.getDate = (Title, result) => {
 
 BookingTable.getRealEstateId = (RealEstateId, result) => {
   dbConn.query(
-    "SELECT * FROM bookingtable where RealEstateId =?",
+    "SELECT * FROM bookingtable where RealEstateId =? and isPaymented = 0",
 
     RealEstateId,
 
     (err, res) => {
       if (err) {
-        console.log("Error while fetching Booking by Title", err);
+        console.log("Error while fetching Booking by RealestateId", err);
 
         result(null, err);
       } else {
         console.log("BookingTable data fetch successfully");
 
+        result(null, res);
+      }
+    }
+  );
+};
+
+BookingTable.updateIsPaymented = (RealEstateId, result) => {
+  dbConn.query(
+    "UPDATE bookingtable SET isPaymented = 1 where RealEstateId = ?",
+    [RealEstateId],
+    (err, res) => {
+      if (err) {
+        console.log("Errorr while updating isPaymented for bookingtable");
+        result(null, err);
+      } else {
+        console.log("Bookingtable updated isPaymented successfully");
         result(null, res);
       }
     }

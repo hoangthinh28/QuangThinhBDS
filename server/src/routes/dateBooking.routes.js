@@ -18,6 +18,8 @@ router.get(
 // // create new realestate
 router.post("/", dateBookingController.createNewDateBooking);
 
+router.post("/paymented/:id", dateBookingController.updateIsPaymented);
+
 // // update realestate
 // router.put('/:id', dateBookingController.updateRealEstate);
 

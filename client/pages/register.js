@@ -141,7 +141,7 @@ export default function Register() {
       <hr></hr>
       <button
         type="submit"
-        class=" py-4 px-5 border-none bg-green-400 w-full opacity-90 my-4 mx-0 cursor-pointer hover:opacity-100 text-white text-xl"
+        className=" py-4 px-5 border-none bg-green-400 w-full opacity-90 my-4 mx-0 cursor-pointer hover:opacity-100 text-white text-xl"
       >
         Register
       </button>

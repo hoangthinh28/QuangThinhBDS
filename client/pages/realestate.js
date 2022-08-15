@@ -45,8 +45,8 @@ export default function RealEstate() {
 
   return (
     <div>
-      <div class="w-2/4 relative align-middle whitespace-nowrap flex justify-center items-center m-auto mt-10">
-        <span class="icon">
+      <div className="w-2/4 relative align-middle whitespace-nowrap flex justify-center items-center m-auto mt-10">
+        <span className="icon">
           <FontAwesomeIcon
             icon={faSearch}
             className="z-10 absolute text-gray-900 right-28 top-3 text-xl"

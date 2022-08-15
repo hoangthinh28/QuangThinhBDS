@@ -171,7 +171,7 @@ const Widget = ({ type }) => {
             style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
           />
         ),
-        amount: total,
+        amount: total.toFixed(4),
       };
       break;
     default:

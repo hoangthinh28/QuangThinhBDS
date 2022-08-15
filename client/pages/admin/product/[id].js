@@ -4,11 +4,20 @@ import Axios from "axios";
 import Link from "next/link";
 import Sidebar from "../Sidebar";
 
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import QTMarket from "../../../artifacts/contracts/QTMarket.sol/QTMarket.json";
+import NFT from "../../../artifacts/contracts/NFT.sol/NFT.json";
+import { nftaddress, nftmarketaddress } from "../../../config";
+
+import { formatUnits } from "ethers/lib/utils";
+
 export default function Detail() {
   const router = useRouter();
   const id = router.query.id;
   const [pbList, setPbList] = useState([]);
   const [plList, setPlList] = useState([]);
+  let createAddress;
 
   useEffect(() => {
     fetchSigleRsList();
@@ -43,13 +52,50 @@ export default function Detail() {
       });
   }
 
+  async function updateIsPaymented() {
+    Axios.post(`http://localhost:5000/api/datebooking/paymented/${id}`)
+      .then((rs) => {
+        console.log(rs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // get ethAddress created
+  pbList.map((rs) => {
+    createAddress = rs.ethAddress;
+    return createAddress;
+  });
+
+  //count total
   let total = 0;
   plList.map((each) => {
     total += each.Price;
     return total;
   });
 
-  console.log(total);
+  async function transferMoney() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      nftmarketaddress,
+      QTMarket.abi,
+      signer
+    );
+
+    const price = ethers.utils.parseEther(total.toString());
+
+    const transaction = await contract.sendTransfer(createAddress, {
+      value: price,
+    });
+
+    await transaction.wait();
+    await updateIsPaymented();
+    router.reload();
+  }
 
   return (
     <div className="bg-slate-400">
@@ -99,29 +145,29 @@ export default function Detail() {
         <div className="w-full max-w-6xl flex flex-col gap-2 relative ">
           <h1 className="text-2xl font-bold">History Transaction</h1>
         </div>
-        <div class="overflow-x-auto bg-white border-2 border-black ">
-          <table class=" w-full  bg-white border-2 border-black text-center">
+        <div className="overflow-x-auto bg-white border-2 border-black ">
+          <table className=" w-full  bg-white border-2 border-black text-center">
             <thead>
               <tr>
-                <th class="border-2 border-black">BookingID</th>
-                <th class="border-2 border-black">Checkint</th>
-                <th class="border-2 border-black">Checkout</th>
-                <th class="border-2 border-black">Address Booking</th>
-                <th class="text-center border-2 border-black">Price</th>
+                <th className="border-2 border-black">BookingID</th>
+                <th className="border-2 border-black">Checkint</th>
+                <th className="border-2 border-black">Checkout</th>
+                <th className="border-2 border-black">Address Booking</th>
+                <th className="text-center border-2 border-black">Price</th>
               </tr>
             </thead>
             {plList.map((each) => (
               <tbody>
                 <tr>
-                  <td class="border-2 border-black">{each.BookingID}</td>
-                  <td class=" border-2 border-black">
+                  <td className="border-2 border-black">{each.BookingID}</td>
+                  <td className=" border-2 border-black">
                     {new Date(each.Checkint).toLocaleDateString()}
                   </td>
-                  <td class=" border-2 border-black">
+                  <td className=" border-2 border-black">
                     {new Date(each.Checkout).toLocaleDateString()}
                   </td>
-                  <td class=" border-2 border-black">{each.ethAddress}</td>
-                  <td class="border-2 border-black">{each.Price}</td>
+                  <td className=" border-2 border-black">{each.ethAddress}</td>
+                  <td className="border-2 border-black">{each.Price}</td>
                 </tr>
               </tbody>
             ))}
@@ -129,7 +175,13 @@ export default function Detail() {
           <div className="flex py-2 justify-between">
             <label className="text-2xl font-medium">Total:</label>
             <h2 className="text-2xl pl-80">
-              <b>{total.toFixed(4)}</b>
+              <b>{total.toFixed(4)} </b>
+              <button
+                onClick={transferMoney}
+                className="bg-cyan-500 text-white px-2 mr-2 rounded-md hover:bg-cyan-600"
+              >
+                Transfer
+              </button>
             </h2>
           </div>
         </div>

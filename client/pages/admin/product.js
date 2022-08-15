@@ -28,26 +28,26 @@ export default function Product() {
 
   return (
     <div className="flex">
-      <Sidebar class="" />
-      <div class="w-4/5 flex justify-center items-center">
-        <div class="-mb-5">
-          <div class="overflow-x-auto w-full ">
-            <table class="w-full ">
+      <Sidebar className="" />
+      <div className="w-4/5 flex justify-center items-center">
+        <div className="-mb-5">
+          <div className="overflow-x-auto w-full ">
+            <table className="w-full ">
               <thead>
                 <tr>
-                  <th class="border-2 border-black ">ID</th>
-                  <th class="border-2 border-black ">Title</th>
-                  <th class="border-2 border-black">Price</th>
-                  <th class="border-2 border-black ">ethAddress</th>
+                  <th className="border-2 border-black ">ID</th>
+                  <th className="border-2 border-black ">Title</th>
+                  <th className="border-2 border-black">Price</th>
+                  <th className="border-2 border-black ">ethAddress</th>
                 </tr>
               </thead>
               {reList.map((each) => (
                 <tbody>
                   <tr key={each.RealEstateId}>
-                    <td class="border-2 border-black text-center px-4">
+                    <td className="border-2 border-black text-center px-4">
                       {each.RealEstateId}
                     </td>
-                    <td class="border-2 border-black hover:bg-cyan-500 px-4">
+                    <td className="border-2 border-black hover:bg-cyan-500 px-4">
                       <Link
                         href="/admin/product/[id]"
                         as={`/admin/product/${each.RealEstateId}`}
@@ -57,8 +57,8 @@ export default function Product() {
                         </a>
                       </Link>
                     </td>
-                    <td class="border-2 border-black px-4">{each.Price}</td>
-                    <td class="border-2 border-black px-4">
+                    <td className="border-2 border-black px-4">{each.Price}</td>
+                    <td className="border-2 border-black px-4">
                       {each.ethAddress}
                     </td>
                   </tr>
