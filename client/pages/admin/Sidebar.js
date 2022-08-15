@@ -44,7 +44,7 @@ export default function Sidebar() {
             <a href="/admin/user" style={{ textDecoration: "none" }}>
               <li className="flex items-center p-1 cursor-pointer">
                 <PersonOutlineIcon className="text-lg text-white" />
-                <span className="text-sm font-semibold text-gray-50 ">
+                <span className="text-sm font-semibold text-gray-50 ml-3">
                   Users
                 </span>
               </li>

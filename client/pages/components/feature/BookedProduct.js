@@ -50,7 +50,6 @@ export function BookedProduct(props) {
                   {new Date(props.Checkout).toLocaleDateString()}
                 </p>
               </div>
-              {console.log(props.Checkint)}
               <div className="price">
                 <h3 className="font-semibold text-end	text-xl">
                   Total: {props.Price} ETH

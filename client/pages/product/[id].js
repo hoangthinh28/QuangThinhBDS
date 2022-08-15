@@ -113,7 +113,6 @@ export default function Product() {
       [],
       { value: price }
     );
-    console.log(transaction);
     await transaction.wait();
     createData(nft);
     router.push("/profile");
@@ -151,8 +150,6 @@ export default function Product() {
       to: new Date(date.Checkout),
     });
   });
-
-  console.log(getDateBooked);
 
   return (
     <div className="pb-6">

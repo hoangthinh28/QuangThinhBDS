@@ -94,7 +94,7 @@ export default function Detail() {
 
     await transaction.wait();
     await updateIsPaymented();
-    router.reload();
+    router.push("/admin");
   }
 
   return (

@@ -103,7 +103,6 @@ const Widget = ({ type }) => {
     // const price = ethers.utils.parseEther(balance.toString());
     const transaction = await contract.withdrawMoneyTo(nftmarketaddress);
     await transaction.wait();
-    console.log(transaction);
     router.reload();
   }
 
