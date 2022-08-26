@@ -49,7 +49,7 @@ Install QTRealestate back-end: [QTRealestate back-end](https://github.com/hoangt
 
 ```bash
   npm install
-  npm
+  npm start
 ```
 
 # Screenshots
