@@ -75,6 +75,12 @@ Install QTRealestate back-end: [QTRealestate back-end](https://github.com/hoangt
 <img src="image/admin2.png">
 </p>
 
+## BSC Scan
+
+<p align=center>
+<img src="image/BSC.png">
+</p>
+
 # Authors
 
 - [@hoangthinh28](https://github.com/hoangthinh28)
