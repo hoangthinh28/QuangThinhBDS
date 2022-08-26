@@ -8,7 +8,7 @@
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
-This project is a crowdfunding platform application that uses [OpenZepplin](https://github.com/OpenZeppelin/openzeppelin-solidity).
+This project is a rent realestate platform application that uses [OpenZepplin](https://github.com/OpenZeppelin/openzeppelin-solidity).
 
 The contract is compiled and deployed under the ERC-721 non-fungible token standard with hardhat framework. After deploying onto the Ethereum blockchain, users will be able to use this application by interacting with the smart contract through DAPP’s front-end interface.
 
