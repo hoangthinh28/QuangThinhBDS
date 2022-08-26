@@ -71,7 +71,6 @@ Install QTRealestate back-end: [QTRealestate back-end](https://github.com/hoangt
 ## Admin
 
 <p align=center>
-<img src="screenshot/campaign.png">
 <img src="image/admin1.png">
 <img src="image/admin2.png">
 </p>
