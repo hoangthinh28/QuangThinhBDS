@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Sidebar from "./Sidebar";
+import { useRouter } from "next/router";
 
 export default function User() {
+  const router = useRouter();
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    fetchRsList();
-  }, []);
+    if (router.isReady) {
+      fetchRsList();
+    }
+  }, [router.isReady]);
 
   async function fetchRsList() {
     let promise = Axios({

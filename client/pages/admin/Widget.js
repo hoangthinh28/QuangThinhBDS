@@ -23,11 +23,13 @@ const Widget = ({ type }) => {
   const [balance, setBalance] = useState("");
 
   useEffect(() => {
-    fetchSigleRsList();
-    fetchSigleReList();
-    fetchSigleBookingList();
-    getBalance();
-  }, []);
+    if (router.isReady) {
+      fetchSigleRsList();
+      fetchSigleReList();
+      fetchSigleBookingList();
+      getBalance();
+    }
+  }, [router.isReady]);
   async function fetchSigleReList() {
     let promise = Axios({
       url: `http://localhost:5000/api/user/`,

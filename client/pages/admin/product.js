@@ -10,8 +10,10 @@ export default function Product() {
   const [reList, setReList] = useState([]);
 
   useEffect(() => {
-    fetchReList();
-  }, []);
+    if (router.isReady) {
+      fetchReList();
+    }
+  }, [router.isReady]);
   async function fetchReList() {
     let promise = Axios({
       url: "http://localhost:5000/api/realEstate/",

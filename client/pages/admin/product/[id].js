@@ -20,9 +20,11 @@ export default function Detail() {
   let createAddress;
 
   useEffect(() => {
-    fetchSigleRsList();
-    fetchSigleBoList();
-  }, []);
+    if (router.isReady) {
+      fetchSigleRsList();
+      fetchSigleBoList();
+    }
+  }, [router.isReady]);
 
   async function fetchSigleRsList() {
     let promise = Axios({

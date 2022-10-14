@@ -38,10 +38,12 @@ export default function Product() {
   ]);
 
   useEffect(() => {
-    fetchSigleRsList();
-    connect();
-    getListDate();
-  }, []);
+    if (router.isReady) {
+      fetchSigleRsList();
+      connect();
+      getListDate();
+    }
+  }, [router.isReady]);
 
   async function connect() {
     const web3Modal = new Web3Modal();

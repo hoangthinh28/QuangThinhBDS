@@ -8,16 +8,20 @@ import Slider from "./components/slider/Slider";
 import SubProduct from "./components/feature/SubProduct";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { useRouter } from "next/router";
 export default function Home() {
+  const router = useRouter();
   const [pdList, setPdList] = useState([]);
   const [viewList, setViewList] = useState([]);
   const [bookList, setBookList] = useState([]);
 
   useEffect(() => {
-    fetchRsList();
-    fetchViewList();
-    fetchBookedList();
-  }, []);
+    if (router.isReady) {
+      fetchRsList();
+      fetchViewList();
+      fetchBookedList();
+    }
+  }, [router.isReady]);
   async function fetchRsList() {
     let promise = Axios({
       url: "http://localhost:5000/api/realEstate/",

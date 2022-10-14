@@ -3,15 +3,19 @@ import Axios from "axios";
 import RealEstatePage from "./components/feature/RealEstatePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 export default function RealEstate() {
+  const router = useRouter();
   const [pdList, setPdList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredRs, setFilteredRs] = useState([]);
 
   useEffect(() => {
-    fetchRsList();
-  }, []);
+    if (router.isReady) {
+      fetchRsList();
+    }
+  }, [router.isReady]);
 
   async function fetchRsList() {
     let promise = Axios({
