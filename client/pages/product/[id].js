@@ -19,6 +19,7 @@ import { BigNumber, ethers } from "ethers";
 import QTMarket from "../../artifacts/contracts/QTMarket.sol/QTMarket.json";
 
 import Axios from "axios";
+import Web3 from "web3";
 
 export default function Product() {
   const router = useRouter();
@@ -36,6 +37,8 @@ export default function Product() {
       key: "selection",
     },
   ]);
+  const [balance, setBalance] = useState(0);
+  const [err, setErr] = useState(true);
 
   useEffect(() => {
     if (router.isReady) {
@@ -48,9 +51,13 @@ export default function Product() {
   async function connect() {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
+    const web3 = new Web3(connection);
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
+    await web3.eth
+      .getBalance(signerAddress)
+      .then((rs) => setBalance(web3.utils.fromWei(rs, "ether")));
     setAddress(signerAddress);
   }
 
@@ -505,12 +512,33 @@ export default function Product() {
                     {each.Price * noofdays} ETH
                   </span>
                 </div>
-                <button
-                  className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
-                  onClick={() => rentRealEstate(each)}
-                >
-                  Reserve or Book Now!
-                </button>
+                {err ? (
+                  <div></div>
+                ) : (
+                  <div>
+                    <p className="text-red-600 p-2 text-xl text-center">
+                      Insufficient Funds
+                    </p>
+                  </div>
+                )}
+                {balance > 0 ? (
+                  <button
+                    className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
+                    onClick={() => rentRealEstate(each)}
+                  >
+                    Reserve or Book Now!
+                  </button>
+                ) : (
+                  <button
+                    className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600 disabled:opacity-75"
+                    onClick={() => {
+                      rentRealEstate(each);
+                      setErr(false);
+                    }}
+                  >
+                    Reserve or Book Now!
+                  </button>
+                )}
               </div>
             </div>
           </div>
