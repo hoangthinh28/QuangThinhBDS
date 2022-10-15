@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import Axios from "axios";
+import { CoinbaseWalletSDK } from "@coinbase/wallet-sdk";
+import Web3 from "web3";
 
 function NavLink({ to, children }) {
   return (
@@ -109,9 +110,22 @@ export default function Navbar() {
 
   const [address, setAddress] = useState([]);
   const [isLogin, setLogin] = useState(false);
+
+  const [web3Provider, setWeb3Provider] = useState(null);
+
+  const providerOptions = {
+    coinbasewallet: {
+      package: CoinbaseWalletSDK,
+      options: {
+        appName: "QT RealEstate",
+      },
+    },
+  };
+
   useEffect(() => {
     connect();
   }, []);
+
   async function login(address) {
     let promise = Axios({
       url: "http://localhost:5000/api/user/",
@@ -121,25 +135,33 @@ export default function Navbar() {
     promise
       .then((result) => {
         console.log(result.data);
-        // console.log(this.state.taskId);
+        localStorage.setItem("Address", address);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
     setLogin(true);
   }
+
   async function connect() {
     const web3Modal = new Web3Modal({
       cacheProvider: true,
       disableInjectedProvider: false,
+      providerOptions,
     });
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const signer = await provider.getSigner();
-    const signerAddress = await signer.getAddress();
-    login(signerAddress);
-    console.log(signerAddress);
-    setAddress(signerAddress);
+    if (provider) {
+      setWeb3Provider(provider);
+      const signer = await provider.getSigner();
+      const signerAddress = await signer.getAddress();
+      login(signerAddress);
+      setAddress(signerAddress);
+    }
+
+    await window.ethereum.on("accountsChanged", async () => {
+      window.location.reload();
+    });
   }
 
   const trimPublicAddress = (string, numberOfCharacter) => {
@@ -218,7 +240,16 @@ export default function Navbar() {
               White paper 1.1
             </a>
           </div>
-          {isLogin ? (
+          {web3Provider == null ? (
+            <button
+              onClick={connect}
+              type="button"
+              className=""
+              id="options-menu"
+            >
+              Connect
+            </button>
+          ) : (
             <div className="flex">
               <div
                 className={
@@ -239,15 +270,6 @@ export default function Navbar() {
                 <NavLink to="/profile">{trimPublicAddress(address, 6)}</NavLink>
               </span>
             </div>
-          ) : (
-            <button
-              onClick={connect}
-              type="button"
-              className=""
-              id="options-menu"
-            >
-              Connect
-            </button>
           )}
         </div>
       </div>
