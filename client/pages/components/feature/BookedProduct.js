@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
@@ -27,34 +28,42 @@ export function BookedProduct(props) {
         {currentItems.map((props) => {
           return (
             <div className="p-3 hover:shadow-[0_4px_0px_rgb(0,0,0)]">
-              <div>
-                <img
-                  key={props.BookingID}
-                  src={props.imgURL}
-                  className="rounded"
-                  alt="image product"
-                />
-              </div>
-              <div className="text-left text-lg">
-                <h3 className="font-semibold">{props.RealEstateTitle}</h3>
-                <p>Address: {props.Address}</p>
-                <p>Room code: {props.RoomCode}</p>
-              </div>
-              <div className="text-left text-lg">
-                <p>
-                  Check in: 14h00{" "}
-                  {new Date(props.Checkint).toLocaleDateString()}
-                </p>
-                <p>
-                  Check out: 12h00{" "}
-                  {new Date(props.Checkout).toLocaleDateString()}
-                </p>
-              </div>
-              <div className="price">
-                <h3 className="font-semibold text-end	text-xl">
-                  Total: {props.Price} ETH
-                </h3>
-              </div>
+              <Link
+                href="/product/[id]"
+                as={`/product/${props.RealEstateId}`}
+                passHref
+              >
+                <a>
+                  <div>
+                    <img
+                      key={props.BookingID}
+                      src={props.imgURL}
+                      className="rounded"
+                      alt="image product"
+                    />
+                  </div>
+                  <div className="text-left text-lg">
+                    <h3 className="font-semibold">{props.RealEstateTitle}</h3>
+                    <p>Address: {props.Address}</p>
+                    <p>Room code: {props.RoomCode}</p>
+                  </div>
+                  <div className="text-left text-lg">
+                    <p>
+                      Check in: 14h00{" "}
+                      {new Date(props.Checkint).toLocaleDateString()}
+                    </p>
+                    <p>
+                      Check out: 12h00{" "}
+                      {new Date(props.Checkout).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="price">
+                    <h3 className="font-semibold text-end	text-xl">
+                      Total: {props.Price} ETH
+                    </h3>
+                  </div>
+                </a>
+              </Link>
             </div>
           );
         })}
