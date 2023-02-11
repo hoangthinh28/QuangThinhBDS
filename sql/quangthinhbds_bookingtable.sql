@@ -31,7 +31,7 @@ CREATE TABLE `bookingtable` (
   `Price` float DEFAULT NULL,
   `Checkint` varchar(250) DEFAULT NULL,
   `Checkout` varchar(250) DEFAULT NULL,
-  `RealEstateId` int DEFAULT NULL,
+  `RealEstateId` varchar(250) DEFAULT NULL,
   `ethAddress` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `isPaymented` int DEFAULT '0',
   PRIMARY KEY (`BookingID`)

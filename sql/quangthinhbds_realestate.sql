@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `realestate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `realestate` (
-  `RealEstateId` int NOT NULL AUTO_INCREMENT,
+  `RealEstateId` varchar(250) NOT NULL,
   `Title` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `RoomCode` varchar(50) NOT NULL,
   `Price` float NOT NULL,

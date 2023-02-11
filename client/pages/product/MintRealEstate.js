@@ -58,6 +58,20 @@ export default function MintRealEstate() {
     connect();
   });
 
+  const randomString = (length) => {
+    var chars = "0123456789".split("");
+    if (!length) {
+      length = Math.floor(Math.random() * chars.length);
+    }
+    var str = "";
+
+    for (var i = 0; i < length; i++) {
+      str += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return str;
+  };
+
   const validateTitle = () => {
     if (title.length < 1) {
       setTitleErr("Title require!");
@@ -295,6 +309,7 @@ export default function MintRealEstate() {
   }
 
   let data = {
+    RealEstateId: randomString(10),
     Title: title,
     RoomCode: roomCode,
     Price: price,
@@ -344,7 +359,7 @@ export default function MintRealEstate() {
 
   const createData = () => {
     const promise = axios.post(`http://localhost:5000/api/realEstate/`, data);
-    const uri = "http://localhost:5000/api/realEstate/" + data;
+    const uri = "http://localhost:5000/api/realEstate/" + data.RealEstateId;
     createSale(uri);
     promise
       .then((result) => {})
@@ -368,7 +383,6 @@ export default function MintRealEstate() {
           border: none;
           background: #f1f1f1;
         }
-
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="number"]:focus,
@@ -377,12 +391,10 @@ export default function MintRealEstate() {
           background-color: #ddd;
           outline: none;
         }
-
         hr {
           border: 1px solid #f1f1f1;
           margin-bottom: 25px;
         }
-
         .registerbtn {
           background-color: #04aa6d;
           color: white;
@@ -393,15 +405,12 @@ export default function MintRealEstate() {
           width: 100%;
           opacity: 0.9;
         }
-
         .registerbtn:hover {
           opacity: 1;
         }
-
         a {
           color: dodgerblue;
         }
-
         .signin {
           background-color: #f1f1f1;
           text-align: center;

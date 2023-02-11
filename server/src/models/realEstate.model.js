@@ -1,6 +1,7 @@
 var dbConn = require("../../config/db.config");
 // const user = require('../models/user.model');
 var RealEstate = function (realEstate) {
+  this.RealEstateId = realEstate.RealEstateId;
   this.Title = realEstate.Title;
   this.RoomCode = realEstate.RoomCode;
   this.Price = realEstate.Price;
