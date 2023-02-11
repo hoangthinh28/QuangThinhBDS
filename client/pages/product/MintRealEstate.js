@@ -343,8 +343,14 @@ export default function MintRealEstate() {
   }
 
   const createData = () => {
-    const url = axios.post(`http://localhost:5000/api/realEstate/`, data);
-    createSale(url);
+    const promise = axios.post(`http://localhost:5000/api/realEstate/`, data);
+    const uri = "http://localhost:5000/api/realEstate/" + data;
+    createSale(uri);
+    promise
+      .then((result) => {})
+      .catch((err) => {
+        return err;
+      });
   };
 
   return (
