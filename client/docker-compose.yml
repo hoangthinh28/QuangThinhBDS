@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    container_name: realestate-client
+    image: realestate-client:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
