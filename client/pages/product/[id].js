@@ -522,12 +522,22 @@ export default function Product() {
                   </div>
                 )}
                 {balance > 0 ? (
-                  <button
-                    className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
-                    onClick={() => rentRealEstate(each)}
-                  >
-                    Reserve or Book Now!
-                  </button>
+                  each.ethAddress === address ? (
+                    <button
+                      className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-slate-500 cursor-pointer"
+                      onClick={() => rentRealEstate(each)}
+                      disabled
+                    >
+                      Reserve or Book Now!
+                    </button>
+                  ) : (
+                    <button
+                      className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600"
+                      onClick={() => rentRealEstate(each)}
+                    >
+                      Reserve or Book Now!
+                    </button>
+                  )
                 ) : (
                   <button
                     className=" w-full text-white p-2  bg-cyan-500 rounded hover:bg-cyan-600 disabled:opacity-75"
