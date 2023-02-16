@@ -164,6 +164,19 @@ export default function Navbar() {
     });
   }
 
+  async function logout() {
+    const web3Modal = new Web3Modal({
+      cacheProvider: true,
+      disableInjectedProvider: false,
+      providerOptions,
+    });
+    web3Modal.clearCachedProvider();
+    window.localStorage.clear();
+    setAddress([]);
+    setLogin(false);
+    window.location.assign("http://localhost:3000/");
+  }
+
   const trimPublicAddress = (string, numberOfCharacter) => {
     return `${string.slice(0, numberOfCharacter)}...${string.slice(
       string.length - numberOfCharacter,
@@ -240,11 +253,11 @@ export default function Navbar() {
               White paper 1.1
             </a>
           </div>
-          {web3Provider == null ? (
+          {web3Provider == null || address === [] ? (
             <button
               onClick={connect}
               type="button"
-              className=""
+              className="ml-3 px-3 py-2  text-base rounded-full text-white  bg-gray-600"
               id="options-menu"
             >
               Connect
@@ -269,6 +282,14 @@ export default function Navbar() {
               >
                 <NavLink to="/profile">{trimPublicAddress(address, 6)}</NavLink>
               </span>
+              <button
+                onClick={logout}
+                type="button"
+                className="ml-3 px-3 py-2  text-base rounded-full text-white  bg-gray-600"
+                id="options-menu"
+              >
+                Log out
+              </button>
             </div>
           )}
         </div>
